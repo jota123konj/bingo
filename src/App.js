@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import CurrentNumbers from './Components/CurrentNumbers/CurrentNumbers';
@@ -7,7 +8,14 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state = {
-    brojevi: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]
+    round: {}
+  };
+
+  componentDidMount() {
+    axios.get(` http://138.68.72.169:8000/api/rounds/running`).then((res) => {
+      const round = res.data;
+      this.setState({ round });
+    });
   }
   render() {
     return (
@@ -19,7 +27,7 @@ class App extends Component {
           </Switch>
         </Router>
         <div className="gameContainer">
-          <CurrentNumbers brojevi = {this.state.brojevi}/>
+          <CurrentNumbers brojevi = {this.state.round.drawnNum}/>
           <TicketNumbers/>
         </div>
       </div>

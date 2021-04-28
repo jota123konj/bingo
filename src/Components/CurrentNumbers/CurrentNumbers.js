@@ -1,25 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './CurrentNumbers.css';
 import Number from './Number'
 
 const CurrentNumbers = (props) => {
-    const roundNumbers = (props) => {
-
-    }
+    let numbrs = String(props.brojevi).split(",");
+    let roundNum = null;
+    let neam = [];
+    roundNum = (numbrs.forEach(element => {
+        neam.push(<Number>{element}</Number>)
+    }));
     return(
         <div className = 'currentNumbers'>
             <div className = "firstFive"> 
-                <Number>1</Number>
-                <Number>2</Number>
-                <Number>3</Number>
-                <Number>4</Number>
-                <Number>5</Number>
                 
             </div>
-                <Number>6</Number>
-            <Number>7</Number>
-            <Number>8</Number>
-    
+            {neam}
         </div>
 
     );
