@@ -1,0 +1,33 @@
+.number>div{
+    background-color: whitesmoke;
+    margin: 0.3rem 0.7rem;
+    text-align: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 10px solid;
+    border-radius: 50%;
+}
+.redColor{
+    border-color: red !important;
+}
+.greenColor{
+    border-color: green!important;
+}
+.blueColor{
+    border-color: blue!important;
+}
+.purpleColor{
+    border-color: purple!important;
+}
+.brownColor{
+    border-color: saddlebrown!important;
+}
+.yellowColor{
+    border-color: yellow!important;
+}
+.orangeColor{
+    border-color: orangered!important;
+}
+.blackColor{
+    border-color: slategray!important;
+}

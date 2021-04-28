@@ -1,0 +1,67 @@
+.ticketNumber {
+    margin: 8px 0 0 4px;
+    display: flex;
+    height: fit-content;
+    width: 35%;
+    justify-content: space-evenly;
+    border: 1px solid black;
+}
+.ticketNumber > div{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 16px 0;
+}
+
+.selectNumberBox {
+    
+    background-color: rgb(158, 158, 158);
+    text-align: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid black;
+    margin: 0.3rem 0.7rem;
+}
+.red, .red>.selectNumberBox{
+    border-color: red;
+    color: red;
+}
+.green, .green>.selectNumberBox{
+    border-color: green;
+    color: green;
+}
+.blue, .blue>.selectNumberBox{
+    border-color: blue;
+    color: blue;
+}
+.purple, .purple>.selectNumberBox{
+    border-color: purple;
+    color: purple;
+}
+.brown, .brown>.selectNumberBox{
+    border-color: brown;
+    color: brown;
+}
+.yellow, .yellow>.selectNumberBox{
+    border-color: yellow;
+    color: yellow;
+}
+.orange, .orange>.selectNumberBox{
+    border-color: orange;
+    color: orange;
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+
+    .ticketNumber {
+        width: 100%;
+        flex-wrap: wrap;
+        margin: 8px 0 0 0;
+    }
+}

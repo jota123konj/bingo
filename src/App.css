@@ -1,0 +1,25 @@
+body {
+  background-image: url("bck.jpg");
+  background-position:top;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+*{
+  padding: 0;
+  text-decoration: none;
+  font-family: sans-serif, Arial, Helvetica;
+}
+.gameContainer{
+  
+  display: flex;
+  margin: 8px 5% 8px 5%;
+}
+@media screen and (max-width: 800px) {
+
+  .gameContainer {
+      flex-direction: column;
+  }
+}
