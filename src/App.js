@@ -12,12 +12,18 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios.get(` http://138.68.72.169:8000/api/rounds/running`).then((res) => {
-      const round = res.data;
-      this.setState({ round });
-    });
+    axios.get('http://138.68.72.169:8000/api/rounds/running').then(response => {
+      response.data.drawnNum = String(response.data.drawnNum).split(",");
+      this.setState({ round: response.data});
+    })
   }
+  
+  
   render() {
+    // const roundR = this.state.round.drawNum.map(number => {
+    //   return <p>{number}</p>
+    // });
+    
     return (
       <div className = "App">
         <Router>
@@ -27,7 +33,8 @@ class App extends Component {
           </Switch>
         </Router>
         <div className="gameContainer">
-          <CurrentNumbers brojevi = {this.state.round.drawnNum}/>
+          {this.state.round ? <CurrentNumbers roundNumbers = {this.state.round.drawnNum} roundEndTime = {this.state.round.finishRoundTime}/> : <a/>}
+          
           <TicketNumbers/>
         </div>
       </div>
