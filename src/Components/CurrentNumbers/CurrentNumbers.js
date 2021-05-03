@@ -1,19 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './CurrentNumbers.css';
 import Number from './Number';
 
 const CurrentNumbers = (props) => {
+    
     if(props.roundNumbers !== undefined){
-        let numbers = props.roundNumbers;
+
+    
+
         let firstFive = [null];
         let remainingNumbers = [null];
-
         
-        numbers.forEach((element, i) => {
+        props.roundNumbers.forEach((element, i) => {
             if(i < 5){
-                firstFive[i] = <Number>{element}</Number>
+                firstFive[i] = <Number key = {i}>{element}</Number>
             }else{
-                remainingNumbers[i-5] = <Number>{element}</Number>
+                remainingNumbers[i-5] = <Number key = {i}>{element}</Number>
             }
         });
 
@@ -22,7 +24,9 @@ const CurrentNumbers = (props) => {
                 <div className = "firstFive"> 
                     {firstFive}
                 </div>
-                {remainingNumbers}
+                <div className="remainingNumbers">
+                    {remainingNumbers}
+                </div>
             </div>
     
         );
@@ -32,11 +36,7 @@ const CurrentNumbers = (props) => {
 }
 
 export default CurrentNumbers;
-// const [ numbersState, setNumbersState] = useState({
-    //     index: 0,
-    //     firstFive: [],
-    //     remainingNumbers: []
-    // });
+
     // let endTime = props.roundEndTime;
     
     // function setFunction(numberParam){

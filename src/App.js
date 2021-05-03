@@ -8,22 +8,66 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state = {
-    round: {}
+    loading: true,
+    brojevi: null,
+    finish: null,
+    count: 0,
+    izvuceni: [],
+    rundaGotova: false
   };
 
-  componentDidMount() {
-    axios.get('http://138.68.72.169:8000/api/rounds/running').then(response => {
-      response.data.drawnNum = String(response.data.drawnNum).split(",");
-      this.setState({ round: response.data});
-    })
-  }
+    
+  componentDidMount(){
+        
+    this.getRunda();
+    this.zoviRundu();
+    
+}
   
+  getRunda = () => {
+    axios.get(` http://138.68.72.169:8000/api/rounds/running`).then((res) => {
+        console.log(res.data.drawnNum);
+        this.setState({ brojevi: res.data.drawnNum,finish: res.data.finishRoundTime, loading: false, rundaGotova: false });
+    }) 
+    .then(()=>{
+        let noviNiz=[];
+        let kopija=this.state.brojevi.split(",");
+        let i=0;
+        this.puniListu(i, noviNiz, kopija); 
+    }
+    );
+  }
+  zoviRundu=()=>{
+        
+    setTimeout(()=>{
+        this.getRunda();
+        if(this.state.rundaGotova){
+                this.zoviRundu();
+            
+        }
+    }, 1*75*1000);
+    
+  }
+
+  puniListu=(i, noviNiz, kopija)=>{
+          setTimeout(()=>{
+              if(i===34){
+                  this.setState({rundaGotova: true});
+              }
+
+              if(i<35){
+                  noviNiz[i]=kopija[i];
+                  
+                  console.log("Korak: " + i);
+                  this.setState({izvuceni: noviNiz})
+                  this.puniListu(i+1,noviNiz, kopija);
+              }
+                  
+          }, 2000);//8571 default
+  }
+
   
   render() {
-    // const roundR = this.state.round.drawNum.map(number => {
-    //   return <p>{number}</p>
-    // });
-    
     return (
       <div className = "App">
         <Router>
@@ -33,7 +77,7 @@ class App extends Component {
           </Switch>
         </Router>
         <div className="gameContainer">
-          {this.state.round ? <CurrentNumbers roundNumbers = {this.state.round.drawnNum} roundEndTime = {this.state.round.finishRoundTime}/> : <a/>}
+          <CurrentNumbers roundNumbers = {this.state.izvuceni}/>
           
           <TicketNumbers/>
         </div>

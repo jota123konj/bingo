@@ -1,6 +1,7 @@
+
 .number>div{
     background-color: whitesmoke;
-    margin: 0.3rem 0.7rem;
+    margin: 0.3rem auto;
     text-align: center;
     width: 1.2rem;
     height: 1.2rem;

@@ -4,14 +4,29 @@
     flex-wrap: wrap;
     height: fit-content;
     width: 65%;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     border: 1px solid black;
 }
+
 .firstFive {
     flex-wrap: wrap;
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: flex-start;
+}
+.firstFive>div{
+    box-sizing: border-box;
+    width: 20%;
+}
+.remainingNumbers{
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+.remainingNumbers>div{
+    box-sizing: border-box;
+    width: 10%
 }
 
 @media screen and (max-width: 800px) {
