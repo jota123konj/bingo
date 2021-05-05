@@ -63,7 +63,7 @@ class App extends Component {
                   this.puniListu(i+1,noviNiz, kopija);
               }
                   
-          }, 2000);//8571 default
+          }, 1000);//8571 default
   }
 
   
@@ -79,7 +79,7 @@ class App extends Component {
         <div className="gameContainer">
           <CurrentNumbers roundNumbers = {this.state.izvuceni}/>
           
-          <TicketNumbers/>
+          <TicketNumbers roundNumbers = {this.state.izvuceni}/>
         </div>
       </div>
     );

@@ -1,32 +1,34 @@
 .currentNumbers {
+    background: rgba(0, 0, 0, 0.65);
+    position: relative;
     margin: 8px 4px 0 0;
     display: flex;
     flex-wrap: wrap;
     height: fit-content;
     width: 65%;
     justify-content: flex-start;
-    border: 1px solid black;
+}
+.currentNumbers> div{
+    margin: auto;
+    flex-direction: column;
+    height: 500px;
+    display: flex;
+    justify-content: flex-start;
+    width: 12%;
 }
 
-.firstFive {
-    flex-wrap: wrap;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-}
 .firstFive>div{
     box-sizing: border-box;
-    width: 20%;
+    height: 20%;
 }
-.remainingNumbers{
-    flex-wrap: wrap;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-}
+
 .remainingNumbers>div{
     box-sizing: border-box;
-    width: 10%
+    height: 10%
+}
+
+.firstQuotes>div, .secondQuotes>div, .lastQuotes>div{
+    height: 10%;
 }
 
 @media screen and (max-width: 800px) {
