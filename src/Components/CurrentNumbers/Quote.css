@@ -11,3 +11,16 @@
     border: 1px hidden blanchedalmond;
     border-radius: 5px;
 }
+
+@media screen and (min-width: 1200px) {
+
+    .quoteNumber{
+        padding: 0.5rem;
+        background-color: blanchedalmond;
+        height: 1.5rem;
+        border: 1px hidden blanchedalmond;
+        border-radius: 5px;
+        font-size: 1.4rem;
+    }
+}
+

@@ -37,3 +37,20 @@
 .blackColor{
     border-color: rgb(48, 48, 48)!important;
 }
+
+
+@media screen and (min-width: 1200px) {
+
+    .number>div{
+        background-color: whitesmoke;
+        margin: auto 0.3rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        width: 1.8rem;
+        height: 1.8rem;
+        border: 11px solid;
+        border-radius: 50%;
+    }
+}
+

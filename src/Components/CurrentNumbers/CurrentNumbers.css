@@ -47,4 +47,10 @@
 }
 
 
-  
+@media screen and (min-width: 1200px) {
+    
+    .currentNumbers {
+        
+    height: 650px;
+    }
+}
