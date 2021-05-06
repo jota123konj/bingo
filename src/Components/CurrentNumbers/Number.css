@@ -14,7 +14,7 @@
     border-radius: 50%;
 }
 .redColor{
-    border-color: red !important;
+    border-color: rgb(238, 0, 0) !important;
 }
 .greenColor{
     border-color: green!important;
@@ -26,13 +26,13 @@
     border-color: purple!important;
 }
 .brownColor{
-    border-color: saddlebrown!important;
+    border-color: rgb(123, 88, 4)!important;
 }
 .yellowColor{
     border-color: gold!important;
 }
 .orangeColor{
-    border-color: orangered!important;
+    border-color: rgb(255, 104, 16)!important;
 }
 .blackColor{
     border-color: rgb(48, 48, 48)!important;
