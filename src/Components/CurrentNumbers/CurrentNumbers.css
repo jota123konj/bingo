@@ -11,30 +11,46 @@
 .currentNumbers> div{
     margin: auto;
     flex-direction: column;
-    height: 500px;
+    height: 600px;
     display: flex;
     justify-content: flex-start;
     width: 12%;
 }
 
 .firstFive>div{
+    border: 0.1px solid rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.45);
     box-sizing: border-box;
     height: 20%;
+    animation: 0.5s;
 }
 
 .remainingNumbers>div{
     box-sizing: border-box;
-    height: 10%
+    height: 10%;
+    animation: 0.5s;
 }
 
 .firstQuotes>div, .secondQuotes>div, .lastQuotes>div{
     height: 10%;
 }
 
+
+
+
 @media screen and (max-width: 800px) {
 
     .currentNumbers {
         width: 100%;
         margin: 8px 0 0 0;
+    }
+}
+
+
+@media screen and (min-width: 1200px) {
+    
+    .currentNumbers {
+        
+    height: 650px;
     }
 }

@@ -16,9 +16,9 @@ const CurrentNumbers = (props) => {
         let secondTen = [null];
         let lastTen = [null];
         firstTenQuotes.forEach((element, i) => {
-            firstTenQuotes[i] = <Quote>{firstTenQuotes[i]}</Quote>;
-            secondTenQuotes[i] = <Quote>{secondTenQuotes[i]}</Quote>;
-            lastTenQuotes[i] = <Quote>{lastTenQuotes[i]}</Quote>
+            firstTenQuotes[i] = <Quote key = {i}>{firstTenQuotes[i]}</Quote>;
+            secondTenQuotes[i] = <Quote key = {i}>{secondTenQuotes[i]}</Quote>;
+            lastTenQuotes[i] = <Quote key = {i}>{lastTenQuotes[i]}</Quote>
         });
         props.roundNumbers.forEach((element, i) => {
             if(i < 5){
@@ -65,55 +65,3 @@ const CurrentNumbers = (props) => {
 }
 
 export default CurrentNumbers;
-
-    // let endTime = props.roundEndTime;
-    
-    // function setFunction(numberParam){
-    //     if(numbersState.index < 5) {
-            
-    //     setNumbersState({...numbersState,firstFive: numbersState.firstFive.push(parseInt(numberParam, 10)),
-    //                     index: numbersState.index++});
-    //     console.log(numbersState.firstFive);
-    //                 }
-    //     else {
-    //         setNumbersState({...numbersState,remainingNumbers: numbersState.remainingNumbers.push(parseInt(numberParam, 10)),
-    //             index: numbersState.index++});
-    //             console.log(numbersState.remainingNumbers);
-    //     }
-    //     // splitArrayFun();
-    // }
-    
- 
-    // // function splitArrayFun() {
-    // //     let index = numbersState.numbers.length -1;
-    // //     console.log(index);
-    
-    // //     if(index<5){
-    // //         setNumbersState({...firstFive[index]:numbersState.numbers[index]});
-    // //     }else{
-    // //         remainingNumbers[index -5] = numbersState.numbers[index];
-
-    // //     }
-        
-    // // }
-    // let firstFiveFunc;
-    // if(numbersState.firstFive === []){
-    // firstFiveFunc = numbersState.firstFive.map((number) => {
-    //     return <Number>{number}</Number>
-    //   });
-    // }
-    // let remainingNumbersFunc = numbersState.remainingNumbers.map((number) => {
-    //     return <Number>{number}</Number>
-    // })
-    // // console.log(firstFiveFunc);
-
-
-
-    // if(numbersState.index < 35){
-    //     setInterval(() => {
-    //         setFunction(props.roundNumbers[numbersState.index])
-    //     }, 1000);
-    // }else{
-        
-    // }
-

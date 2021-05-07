@@ -14,7 +14,7 @@
     border-radius: 50%;
 }
 .redColor{
-    border-color: red !important;
+    border-color: rgb(238, 0, 0) !important;
 }
 .greenColor{
     border-color: green!important;
@@ -26,14 +26,31 @@
     border-color: purple!important;
 }
 .brownColor{
-    border-color: saddlebrown!important;
+    border-color: rgb(123, 88, 4)!important;
 }
 .yellowColor{
     border-color: gold!important;
 }
 .orangeColor{
-    border-color: orangered!important;
+    border-color: rgb(255, 104, 16)!important;
 }
 .blackColor{
     border-color: rgb(48, 48, 48)!important;
 }
+
+
+@media screen and (min-width: 1200px) {
+
+    .number>div{
+        background-color: whitesmoke;
+        margin: auto 0.3rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        width: 1.8rem;
+        height: 1.8rem;
+        border: 11px solid;
+        border-radius: 50%;
+    }
+}
+
