@@ -1,0 +1,13 @@
+.quote{
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.quoteNumber{
+    padding: 0.5rem;
+    background-color: blanchedalmond;
+    height: 1rem;
+    border: 1px hidden blanchedalmond;
+    border-radius: 5px;
+}

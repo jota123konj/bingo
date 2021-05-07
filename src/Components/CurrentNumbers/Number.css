@@ -1,6 +1,12 @@
+
+.number{
+    display: flex;
+    align-self: center;
+}
+
 .number>div{
     background-color: whitesmoke;
-    margin: 0.3rem 0.7rem;
+    margin: auto 0.3rem;
     text-align: center;
     width: 1.2rem;
     height: 1.2rem;
@@ -29,5 +35,5 @@
     border-color: orangered!important;
 }
 .blackColor{
-    border-color: slategray!important;
+    border-color: rgb(48, 48, 48)!important;
 }
