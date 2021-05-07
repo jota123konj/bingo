@@ -17,7 +17,7 @@ class App extends Component {
       this.setState({ round: response.data});
     })
   }
-  
+  //novi komentar
   
   render() {
     // const roundR = this.state.round.drawNum.map(number => {
