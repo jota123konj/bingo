@@ -1,15 +1,20 @@
-.numberBox {
-    background-color: rgb(221, 221, 221);
+.numberBox > div {
+    display: flex;
+    /* background-color: rgb(221, 221, 221); */
     text-align: center;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
     border: 0.01rem solid;
-    background-color: rgb(48, 48, 48);
+    /* background-color: rgb(48, 48, 48); */
     margin: 0.3rem 0.7rem;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 1.5px 1.5px 1.3px black;
+    color: white;
 }
 .red{
-    background-color: red ;
+    background-color: rgb(238, 0, 0) ;
 }
 .green{
     background-color: green;
@@ -21,13 +26,13 @@
     background-color: purple;
 }
 .brown{
-    background-color: saddlebrown;
+    background-color: rgb(123, 88, 4);
 }
 .yellow{
     background-color: gold;
 }
 .orange{
-    background-color: orangered;
+    background-color: rgb(255, 104, 16);
 }
 .black{
     background-color: black;

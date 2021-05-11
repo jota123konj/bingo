@@ -1,85 +1,92 @@
-import React from 'react'
+import React, { Component } from 'react'
+import NumberBox from './NumberBox';
 import './TicketNumbers.css'
 
-const TicketNumber = () => {
-    return(
-        <div className = "ticketNumber">
-            <div className="red">
-                <div className = 'selectNumberBox'>1</div>
-                <div className = 'selectNumberBox'>9</div>
-                <div className = 'selectNumberBox'>17</div>
-                <div className = 'selectNumberBox'>25</div>
-                <div className = 'selectNumberBox'>33</div>
-                <div className = 'selectNumberBox'>41</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="green">
-                <div className = 'selectNumberBox'>2</div>
-                <div className = 'selectNumberBox'>10</div>
-                <div className = 'selectNumberBox'>18</div>
-                <div className = 'selectNumberBox'>26</div>
-                <div className = 'selectNumberBox'>34</div>
-                <div className = 'selectNumberBox'>42</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="blue">
-                <div className = 'selectNumberBox'>3</div>
-                <div className = 'selectNumberBox'>11</div>
-                <div className = 'selectNumberBox'>19</div>
-                <div className = 'selectNumberBox'>27</div>
-                <div className = 'selectNumberBox'>35</div>
-                <div className = 'selectNumberBox'>43</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="purple">
-                <div className = 'selectNumberBox'>4</div>
-                <div className = 'selectNumberBox'>12</div>
-                <div className = 'selectNumberBox'>20</div>
-                <div className = 'selectNumberBox'>28</div>
-                <div className = 'selectNumberBox'>36</div>
-                <div className = 'selectNumberBox'>44</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="brown">
-                <div className = 'selectNumberBox'>5</div>
-                <div className = 'selectNumberBox'>13</div>
-                <div className = 'selectNumberBox'>21</div>
-                <div className = 'selectNumberBox'>29</div>
-                <div className = 'selectNumberBox'>37</div>
-                <div className = 'selectNumberBox'>45</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="yellow">
-                <div className = 'selectNumberBox'>6</div>
-                <div className = 'selectNumberBox'>14</div>
-                <div className = 'selectNumberBox'>22</div>
-                <div className = 'selectNumberBox'>30</div>
-                <div className = 'selectNumberBox'>38</div>
-                <div className = 'selectNumberBox'>46</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="orange">
-                <div className = 'selectNumberBox'>7</div>
-                <div className = 'selectNumberBox'>15</div>
-                <div className = 'selectNumberBox'>23</div>
-                <div className = 'selectNumberBox'>31</div>
-                <div className = 'selectNumberBox'>39</div>
-                <div className = 'selectNumberBox'>47</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
-            <div className="black">
-                <div className = 'selectNumberBox'>8</div>
-                <div className = 'selectNumberBox'>16</div>
-                <div className = 'selectNumberBox'>24</div>
-                <div className = 'selectNumberBox'>32</div>
-                <div className = 'selectNumberBox'>40</div>
-                <div className = 'selectNumberBox'>48</div>
-                <div className = 'selectNumberBox'>^</div>
-            </div>
+class TicketNumbers extends Component {
+    
+    toggleNumberBool = () => {
 
-            
-        </div>
-    )
+    }
+    render() {
+        return(
+            <div className = "ticketNumbers">
+                <div className="">
+                    <NumberBox keys = {1} number = {1} />
+                    <NumberBox keys = {9} number = {9} />
+                    <NumberBox keys = {17} number = {17} />
+                    <NumberBox keys = {25} number = {25} />
+                    <NumberBox keys = {33} number = {33} />
+                    <NumberBox keys = {41} number = {41} />
+                    <NumberBox keys = {49} number = {"^"} />
+                </div>
+                <div className="">
+                    <NumberBox keys = {2} number = {2}/>
+                    <NumberBox keys = {10} number = {10}/>
+                    <NumberBox keys = {18} number = {18}/>
+                    <NumberBox keys = {26} number = {26}/>
+                    <NumberBox keys = {34} number = {34}/>
+                    <NumberBox keys = {42} number = {42}/>
+                    <NumberBox keys = {50} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {3} number = {3}/>
+                    <NumberBox keys = {11} number = {11}/>
+                    <NumberBox keys = {19} number = {19}/>
+                    <NumberBox keys = {27} number = {27}/>
+                    <NumberBox keys = {35} number = {35}/>
+                    <NumberBox keys = {43} number = {43}/>
+                    <NumberBox keys = {51} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {4} number = {4}/>
+                    <NumberBox keys = {12} number = {12}/>
+                    <NumberBox keys = {20} number = {20}/>
+                    <NumberBox keys = {28} number = {28}/>
+                    <NumberBox keys = {36} number = {36}/>
+                    <NumberBox keys = {44} number = {44}/>
+                    <NumberBox keys = {52} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {5} number = {5}/>
+                    <NumberBox keys = {13} number = {13}/>
+                    <NumberBox keys = {21} number = {21}/>
+                    <NumberBox keys = {29} number = {29}/>
+                    <NumberBox keys = {37} number = {37}/>
+                    <NumberBox keys = {45} number = {45}/>
+                    <NumberBox keys = {53} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {6} number = {6}/>
+                    <NumberBox keys = {14} number = {14}/>
+                    <NumberBox keys = {22} number = {22}/>
+                    <NumberBox keys = {30} number = {30}/>
+                    <NumberBox keys = {38} number = {38}/>
+                    <NumberBox keys = {46} number = {46}/>
+                    <NumberBox keys = {54} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {7} number = {7}/>
+                    <NumberBox keys = {15} number = {15}/>
+                    <NumberBox keys = {23} number = {23}/>
+                    <NumberBox keys = {31} number = {31}/>
+                    <NumberBox keys = {39} number = {39}/>
+                    <NumberBox keys = {47} number = {47}/>
+                    <NumberBox keys = {55} number = {"^"}/>
+                </div>
+                <div className="">
+                    <NumberBox keys = {8} number = {8}/>
+                    <NumberBox keys = {16} number = {16}/>
+                    <NumberBox keys = {24} number = {24}/>
+                    <NumberBox keys = {32} number = {32}/>
+                    <NumberBox keys = {40} number = {40}/>
+                    <NumberBox keys = {48} number = {48}/>
+                    <NumberBox keys = {56} number = {"^"}/>
+                </div>
+    
+                
+            </div>
+        )
+    }
 }
 
-export default TicketNumber;
+export default TicketNumbers;

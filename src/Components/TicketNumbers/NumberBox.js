@@ -23,8 +23,10 @@ const NumberBox = (props) => {
         }
     }
     return(
-        <div className = {Color(props.children)}>
-            <p>{props.children}</p>
+        <div className = "numberBox">
+            <div className = {Color(props.keys)}>
+                <p>{props.number}</p>
+            </div>
         </div>
     )
 }

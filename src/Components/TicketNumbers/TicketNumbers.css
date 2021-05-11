@@ -1,4 +1,4 @@
-.ticketNumber {
+.ticketNumbers {
     margin: 8px 0 0 4px;
     display: flex;
     height: fit-content;
@@ -6,7 +6,7 @@
     justify-content: space-evenly;
     border: 1px solid black;
 }
-.ticketNumber > div{
+.ticketNumbers > div{
     display: flex;
     flex-direction: column;
     margin: 0 0 16px 0;
@@ -22,35 +22,6 @@
     border: 1px solid black;
     margin: 0.3rem 0.7rem;
 }
-.red, .red>.selectNumberBox{
-    border-color: red;
-    color: red;
-}
-.green, .green>.selectNumberBox{
-    border-color: green;
-    color: green;
-}
-.blue, .blue>.selectNumberBox{
-    border-color: blue;
-    color: blue;
-}
-.purple, .purple>.selectNumberBox{
-    border-color: purple;
-    color: purple;
-}
-.brown, .brown>.selectNumberBox{
-    border-color: brown;
-    color: brown;
-}
-.yellow, .yellow>.selectNumberBox{
-    border-color: yellow;
-    color: yellow;
-}
-.orange, .orange>.selectNumberBox{
-    border-color: orange;
-    color: orange;
-}
-
 
 
 
@@ -59,7 +30,7 @@
 
 @media screen and (max-width: 800px) {
 
-    .ticketNumber {
+    .ticketNumbers {
         width: 100%;
         flex-wrap: wrap;
         margin: 8px 0 0 0;
