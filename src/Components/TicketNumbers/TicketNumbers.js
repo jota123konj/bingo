@@ -1,92 +1,114 @@
 import React, { Component } from 'react'
 import NumberBox from './NumberBox';
 import './TicketNumbers.css'
+import Numbers from '../../dataNumbers.json'
 
 class TicketNumbers extends Component {
-    
-    toggleNumberBool = () => {
-
+    constructor(props) {
+        super(props);
+        this.state = Numbers;
+        this.generateElements();
     }
+    array = []
+    generateElements = () => {
+        let n0 = [];
+        let n1 = [];
+        let n2 = [];
+        let n3 = [];
+        let n4 = [];
+        let n5 = [];
+        let n6 = [];
+        let n7 = [];
+        this.state.numbers.forEach((element, i) => {
+            switch ((i+1)%8){
+                case 1:
+                    n0.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 2:
+                    n1.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 3:
+                    n2.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 4:
+                    n3.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 5:
+                    n4.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 6:
+                    n5.push(<NumberBox
+                        key = {i}
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                case 7:
+                    n6.push(<NumberBox
+                        key = {i} 
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                            />)
+                    break;
+                default:
+                    n7.push(<NumberBox
+                        key = {i} 
+                        keys = {parseInt(this.state.numbers[i].key, 10)}
+                        number = {this.state.numbers[i].number} 
+                        />)
+                    break;
+            }
+
+        });
+        for (let i = 0; i < 8; i++) {
+            let a = <div    key = {i} >{eval("n" + i)}</div>
+            this.array.push(a) 
+        }
+    }
+    // toggleNumberBool = (ara, key) =>{
+    //     if(key > 48){
+    //         switch (key) {
+    //             case 49:
+                    
+    //                 break;
+            
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // }
     render() {
-        return(
-            <div className = "ticketNumbers">
-                <div className="">
-                    <NumberBox keys = {1} number = {1} />
-                    <NumberBox keys = {9} number = {9} />
-                    <NumberBox keys = {17} number = {17} />
-                    <NumberBox keys = {25} number = {25} />
-                    <NumberBox keys = {33} number = {33} />
-                    <NumberBox keys = {41} number = {41} />
-                    <NumberBox keys = {49} number = {"^"} />
+        if(this.state.numbers !== undefined)
+            {
+                return(
+                <div className = "ticketNumbers">
+                    {this.array}
                 </div>
-                <div className="">
-                    <NumberBox keys = {2} number = {2}/>
-                    <NumberBox keys = {10} number = {10}/>
-                    <NumberBox keys = {18} number = {18}/>
-                    <NumberBox keys = {26} number = {26}/>
-                    <NumberBox keys = {34} number = {34}/>
-                    <NumberBox keys = {42} number = {42}/>
-                    <NumberBox keys = {50} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {3} number = {3}/>
-                    <NumberBox keys = {11} number = {11}/>
-                    <NumberBox keys = {19} number = {19}/>
-                    <NumberBox keys = {27} number = {27}/>
-                    <NumberBox keys = {35} number = {35}/>
-                    <NumberBox keys = {43} number = {43}/>
-                    <NumberBox keys = {51} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {4} number = {4}/>
-                    <NumberBox keys = {12} number = {12}/>
-                    <NumberBox keys = {20} number = {20}/>
-                    <NumberBox keys = {28} number = {28}/>
-                    <NumberBox keys = {36} number = {36}/>
-                    <NumberBox keys = {44} number = {44}/>
-                    <NumberBox keys = {52} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {5} number = {5}/>
-                    <NumberBox keys = {13} number = {13}/>
-                    <NumberBox keys = {21} number = {21}/>
-                    <NumberBox keys = {29} number = {29}/>
-                    <NumberBox keys = {37} number = {37}/>
-                    <NumberBox keys = {45} number = {45}/>
-                    <NumberBox keys = {53} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {6} number = {6}/>
-                    <NumberBox keys = {14} number = {14}/>
-                    <NumberBox keys = {22} number = {22}/>
-                    <NumberBox keys = {30} number = {30}/>
-                    <NumberBox keys = {38} number = {38}/>
-                    <NumberBox keys = {46} number = {46}/>
-                    <NumberBox keys = {54} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {7} number = {7}/>
-                    <NumberBox keys = {15} number = {15}/>
-                    <NumberBox keys = {23} number = {23}/>
-                    <NumberBox keys = {31} number = {31}/>
-                    <NumberBox keys = {39} number = {39}/>
-                    <NumberBox keys = {47} number = {47}/>
-                    <NumberBox keys = {55} number = {"^"}/>
-                </div>
-                <div className="">
-                    <NumberBox keys = {8} number = {8}/>
-                    <NumberBox keys = {16} number = {16}/>
-                    <NumberBox keys = {24} number = {24}/>
-                    <NumberBox keys = {32} number = {32}/>
-                    <NumberBox keys = {40} number = {40}/>
-                    <NumberBox keys = {48} number = {48}/>
-                    <NumberBox keys = {56} number = {"^"}/>
-                </div>
-    
-                
-            </div>
-        )
+            )
+        }
+            else return null;
     }
 }
 
 export default TicketNumbers;
+
