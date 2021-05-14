@@ -1,39 +1,103 @@
-.numberBox > div {
+
+.passive {
+    background-color: rgb(170, 170, 170);
     display: flex;
-    /* background-color: rgb(221, 221, 221); */
     text-align: center;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    border: 0.01rem solid;
-    /* background-color: rgb(48, 48, 48); */
+    border: 0.03rem solid black;
     margin: 0.3rem 0.7rem;
     justify-content: center;
     align-items: center;
+}
+.passive > p {
+    font-size: 1.1rem;
+    text-shadow:
+   -0.7px -0.7px 0.9px black,  
+    0.7px -0.7px 0.9px black,
+    -0.7px 0.7px 0.9px black,
+     0.7px 0.7px 0.9px black;
+}
+.passive>.red{
+    color: rgb(238, 0, 0) ;
+}
+.passive>.green{
+    color: green;
+}
+.passive>.blue{
+    color: blue;
+}
+.passive>.purple{
+    color: purple;
+}
+.passive>.brown{
+    color: rgb(123, 88, 4);
+}
+.passive>.yellow{
+    color: gold;
+}
+.passive>.orange{
+    color: rgb(255, 104, 16);
+}
+.passive>.black{
+    color: black;
+    font-weight: normal;
+    text-shadow:
+   -1px -1px 0.9px white,  
+    1px -1px 0.9px white,
+    -1px 1px 0.9px white,
+     1px 1px 0.9px white !important;
+     
+    -webkit-text-stroke-width: 0.8px;
+    -webkit-text-stroke-color: black;
+}
+
+.numberBox:hover{
+    cursor: pointer;
+}
+
+.numberBox > .red,.numberBox > .green,.numberBox > .blue,.numberBox > .purple,.numberBox > .brown,.numberBox > .yellow,.numberBox > .orange,.numberBox > .black {
+    display: flex;
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.01rem solid white;
+    margin: 0.3rem 0.7rem;
+    justify-content: center;
+    align-items: center;
+}
+.numberBox>.red{
+    background-color: rgb(238, 0, 0) ;
+}
+.numberBox>.green{
+    background-color: green;
+}
+.numberBox>.blue{
+    background-color: blue;
+}
+.numberBox>.purple{
+    background-color: purple;
+}
+.numberBox>.brown{
+    background-color: rgb(123, 88, 4);
+}
+.numberBox>.yellow{
+    background-color: gold;
+}
+.numberBox>.orange{
+    background-color: rgb(255, 104, 16);
+}
+.numberBox>.black{
+    background-color: black;
+}
+.false{
     text-shadow: 1.5px 1.5px 1.3px black;
     color: white;
 }
-.red{
-    background-color: rgb(238, 0, 0) ;
-}
-.green{
-    background-color: green;
-}
-.blue{
-    background-color: blue;
-}
-.purple{
-    background-color: purple;
-}
-.brown{
-    background-color: rgb(123, 88, 4);
-}
-.yellow{
-    background-color: gold;
-}
-.orange{
-    background-color: rgb(255, 104, 16);
-}
-.black{
-    background-color: black;
+.black>.false{
+    
+    text-shadow: 1.5px 1.5px 1.3px black;
+    color: white;
 }
