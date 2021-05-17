@@ -1,10 +1,10 @@
 import React from 'react';
 import './ActiveTicket.css'
 
-const ActiveTicket = () => {
+const ActiveTicket = (props) => {
     return(
-        <div>
-
+        <div className = 'activeTicket'>
+            {props.children}
         </div>
     )
 } 

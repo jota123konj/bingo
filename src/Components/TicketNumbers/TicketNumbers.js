@@ -27,7 +27,7 @@ class TicketNumbers extends Component {
             switch ((i+1)%8){
                 case 1:
                     n0.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -36,7 +36,7 @@ class TicketNumbers extends Component {
                     break;
                 case 2:
                     n1.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -45,7 +45,7 @@ class TicketNumbers extends Component {
                     break;
                 case 3:
                     n2.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -54,7 +54,7 @@ class TicketNumbers extends Component {
                     break;
                 case 4:
                     n3.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -63,7 +63,7 @@ class TicketNumbers extends Component {
                     break;
                 case 5:
                     n4.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -72,7 +72,7 @@ class TicketNumbers extends Component {
                     break;
                 case 6:
                     n5.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i}
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -81,7 +81,7 @@ class TicketNumbers extends Component {
                     break;
                 case 7:
                     n6.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i} 
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -90,7 +90,7 @@ class TicketNumbers extends Component {
                     break;
                 default:
                     n7.push(<NumberBox
-                        clickHandler = {() => this.toggleNumberTicket(i, this.toggleNumberCss(i, this.generateElements))}
+                        clickHandler = {() => this.toggleNumberTicket(i)}
                         key = {i} 
                         keys = {this.state.numbers[i].key}
                         number = {this.state.numbers[i].number}
@@ -113,60 +113,61 @@ class TicketNumbers extends Component {
         }else{
             tempState[index].added = true;       
         }
+
         this.setState({
             numbers: tempState
         });
+        this.generateElements();
     }
-
-    toggleNumberCss = (index, reGenerateElements) =>{
-            this.setDifferentAdded(index);
-            // console.log(this.state.numbers[index].added)
-            reGenerateElements();
-    }
-    
-    addStateElements = (index) => {
+    addTicketNumber = (index) => {
+        //dodaj broj u state niz
         let tempArray = this.state.elements;
-        tempArray.push(this.state.numbers[index].number);
-        this.setState({elements: tempArray});
-    }
-    deleteStateElements = (index) => {
-        let tempArray = this.state.elements;
-        let counter = 0;
-        tempArray.forEach((element) => {
-            if(element !== this.state.numbers[index].key){
-                tempArray[counter] = element;
-                counter++;
-            }else{
-                console.log('delete element funkcija');
-            }
+        tempArray.push(this.state.numbers[index].key);
+        //stavi novi niz u state
+        this.setState({
+            elements: tempArray
         });
-        this.setState({elements: tempArray})
+        //promijeni added bool u true
+        this.setDifferentAdded(index);
     }
 
-    toggleNumberTicket = (index, callbackF) => {
-        if(this.state.numbers[index].added === false){
-            if(this.state.elements.length < 6){
-                this.addStateElements(index);
-                console.log(this.state.elements);
-                callbackF;
-            }else{
-                console.log('nemere više');
-            }
-        }else{
-            this.deleteStateElements(index);
-        }
-        // ovdje nastavi
+    deleteTicketNumber = (index) => {
+        //izvadi iz niza element koji je kliknut
+        let tempArray = this.state.elements.filter(element => {
+            return element !== this.state.numbers[index].key;
+        });
+        //postavi novi niz u state
+        this.setState({
+            elements: tempArray
+        });
+        //promijeni added bool u false
+        this.setDifferentAdded(index);
     }
     
+    toggleNumberTicket = (index) => {
+        //nastavi: if index < 48 za boje. Koristi filter
+        if(this.state.numbers[index].added){
+            this.deleteTicketNumber(index);
+        }else{
+            if (this.state.elements.length < 6) {
+                this.addTicketNumber(index);
+
+            }else{
+                return console.log('nemere više');
+            }
+        }
+    }
     
     render() {
         if(this.state.numbers !== undefined)
             {
                 return(
-                <div className = "ticketNumbers">
-                    {this.array}
-                    <ActiveTicket></ActiveTicket>
-                </div>
+                    <div className = 'ticketNumbers'>
+                        <div className = "numbersSelection">
+                            {this.array}
+                        </div>
+                        <ActiveTicket>{this.state.elements}</ActiveTicket>
+                    </div>
             )
         }
             else return null;
