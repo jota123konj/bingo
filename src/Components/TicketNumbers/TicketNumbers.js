@@ -147,17 +147,33 @@ class TicketNumbers extends Component {
         console.log('color clicked')
         let tempTicketNumbers = [];
         let tempStateNumbers = this.state.numbers
-        for (let i = (index%8)+1; i < 49; i+8) {
-            tempTicketNumbers.push(this.state.numbers[i-1].key);
+        
+        tempStateNumbers.forEach(element => {
+            element.added=false;
+        });
+        
+        let ind=index+1;
+        for (let i = ind%8; i < 49;) {
+            if(i===0){
+                i=8;
+            }
+            tempTicketNumbers.push(i);
+            //console.log("addcolorNUmbers, i: "+i);
             tempStateNumbers[i-1].added = true;
+            i=i+8;
         }
+        
         if (tempTicketNumbers.length === 6) {
             this.setState({
                 numbers: tempStateNumbers,
                 elements: tempTicketNumbers
             })            
         }
+        
+        this.generateElements();
     }
+    
+    
     
     toggleNumberTicket = (index) => {
         //nastavi: if index < 48 za boje. Koristi filter
