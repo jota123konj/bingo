@@ -106,7 +106,7 @@ class TicketNumbers extends Component {
         }
     }
 
-    setDifferentAdded = (index) => {
+    setSingleDifferentAdded = (index) => {
         let tempState = this.state.numbers;
         if(tempState[index].added === true){            
             tempState[index].added = false;
@@ -128,7 +128,7 @@ class TicketNumbers extends Component {
             elements: tempArray
         });
         //promijeni added bool u true
-        this.setDifferentAdded(index);
+        this.setSingleDifferentAdded(index);
     }
 
     deleteTicketNumber = (index) => {
@@ -141,20 +141,40 @@ class TicketNumbers extends Component {
             elements: tempArray
         });
         //promijeni added bool u false
-        this.setDifferentAdded(index);
+        this.setSingleDifferentAdded(index);
+    }
+    addColorNumbers = (index) => {
+        console.log('color clicked')
+        let tempTicketNumbers = [];
+        let tempStateNumbers = this.state.numbers
+        for (let i = (index%8)+1; i < 49; i+8) {
+            tempTicketNumbers.push(this.state.numbers[i-1].key);
+            tempStateNumbers[i-1].added = true;
+        }
+        if (tempTicketNumbers.length === 6) {
+            this.setState({
+                numbers: tempStateNumbers,
+                elements: tempTicketNumbers
+            })            
+        }
     }
     
     toggleNumberTicket = (index) => {
         //nastavi: if index < 48 za boje. Koristi filter
-        if(this.state.numbers[index].added){
-            this.deleteTicketNumber(index);
-        }else{
-            if (this.state.elements.length < 6) {
-                this.addTicketNumber(index);
-
+        if (index < 48) {
+            if(this.state.numbers[index].added){
+                this.deleteTicketNumber(index);
             }else{
-                return console.log('nemere više');
+                if (this.state.elements.length < 6) {
+                    this.addTicketNumber(index);
+
+                }else{
+                    return console.log('nemere više');
+                }
             }
+        }else{
+            this.addColorNumbers(index);
+
         }
     }
     
@@ -166,7 +186,7 @@ class TicketNumbers extends Component {
                         <div className = "numbersSelection">
                             {this.array}
                         </div>
-                        <ActiveTicket>{this.state.elements}</ActiveTicket>
+                        <ActiveTicket stateReset = {this.stateElementsReset}>{this.state.elements}</ActiveTicket>
                     </div>
             )
         }
