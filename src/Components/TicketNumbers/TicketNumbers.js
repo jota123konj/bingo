@@ -3,6 +3,7 @@ import NumberBox from './NumberBox';
 import ActiveTicket from './ActiveTicket';
 import './TicketNumbers.css'
 import Numbers from '../../dataNumbers.json'
+import axios from 'axios';
 
 class TicketNumbers extends Component {
     constructor(props) {
@@ -221,7 +222,7 @@ class TicketNumbers extends Component {
             this.addColorNumbers(index);
             
         }
-        this.postTicket();
+        
     }
     
     postTicket=()=>{
@@ -239,8 +240,13 @@ class TicketNumbers extends Component {
         const parametri={"selectedNum": numString,
                             "stake": 1
                             };
-        console.log("Objekt: "+parametri);
-        //axios.post('http://138.68.72.169:8000/api​/Tickets', parametri);
+        console.log("Objekt: ",parametri);
+        axios.post(` http://138.68.72.169:8000/api/tickets`, parametri, {
+            headers: {
+                authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjA3MTJkYzdhLWEzNjctNDlhMi04ZTZhLWQ2YjVkYmQzMGUxMiIsImlhdCI6IjEyLjUuMjAyMS4gODo1OTowMCIsIklkIjoiNDgiLCJVc2VyTmFtZSI6InVzZXIzIiwiRmlyc3ROYW1lIjoiVG9pIiwiTGFzdE5hbWUiOiJUb25uaSIsImV4cCI6MTYyMDg5NjM0MCwiaXNzIjoiTHVja3lTaXhBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6Ikx1Y2t5U2l4U2VydmljZVBvc3RtYW5DbGllbnQifQ.pUDg24f8vNU2cCklY_oQ48JtPfqVauzVDtmMob4v_Uc",
+                userid: "48"
+            }
+        });
     }
     
     
