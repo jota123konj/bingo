@@ -219,9 +219,30 @@ class TicketNumbers extends Component {
             }
         }else{
             this.addColorNumbers(index);
-
+            
         }
+        this.postTicket();
     }
+    
+    postTicket=()=>{
+        
+        let numString="";
+        this.state.elements.forEach((e,i)=>{
+            if(i===5){
+                numString=numString+e;
+            }else{
+                numString=numString+e+",";
+            }
+        });
+        
+        console.log("String: " + numString);
+        const parametri={"selectedNum": numString,
+                            "stake": 1
+                            };
+        console.log("Objekt: "+parametri);
+        //axios.post('http://138.68.72.169:8000/api​/Tickets', parametri);
+    }
+    
     
     render() {
         if(this.state.numbers !== undefined)
