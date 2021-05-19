@@ -252,7 +252,7 @@ class TicketNumbers extends Component {
                         <div className = "numbersSelection">
                             {this.array}
                         </div>
-                        <ActiveTicket stateReset = {this.stateElementsReset}>{this.state.elements}</ActiveTicket>
+                        <ActiveTicket clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>
                     </div>
             )
         }

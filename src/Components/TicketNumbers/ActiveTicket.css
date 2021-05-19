@@ -1,4 +1,17 @@
 .activeTicket {
+    display: flex;
+    flex-direction: column;
     font-size: large;
+}
+.ticket {
+    display: flex;
+    flex-direction: row;
+}
+.ticketNumber {
+
+    box-sizing: border-box;
+    padding: 2px;
+    margin: 1px;
+    border: 1px solid black;
     background-color: white;
 }
