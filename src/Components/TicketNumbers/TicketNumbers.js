@@ -11,7 +11,7 @@ class TicketNumbers extends Component {
         this.state = Numbers;
         this.generateElements();
     }
-
+    
     array = []
 
     generateElements = () => {
@@ -227,26 +227,46 @@ class TicketNumbers extends Component {
     
     postTicket=()=>{
         
-        let numString="";
-        this.state.elements.forEach((e,i)=>{
-            if(i===5){
-                numString=numString+e;
-            }else{
-                numString=numString+e+",";
-            }
-        });
+        if(this.state.elements.length===6){
         
-        console.log("String: " + numString);
-        const parametri={"selectedNum": numString,
-                            "stake": 1
-                            };
-        console.log("Objekt: ",parametri);
-        axios.post(` http://138.68.72.169:8000/api/tickets`, parametri, {
-            headers: {
-                authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjA3MTJkYzdhLWEzNjctNDlhMi04ZTZhLWQ2YjVkYmQzMGUxMiIsImlhdCI6IjEyLjUuMjAyMS4gODo1OTowMCIsIklkIjoiNDgiLCJVc2VyTmFtZSI6InVzZXIzIiwiRmlyc3ROYW1lIjoiVG9pIiwiTGFzdE5hbWUiOiJUb25uaSIsImV4cCI6MTYyMDg5NjM0MCwiaXNzIjoiTHVja3lTaXhBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6Ikx1Y2t5U2l4U2VydmljZVBvc3RtYW5DbGllbnQifQ.pUDg24f8vNU2cCklY_oQ48JtPfqVauzVDtmMob4v_Uc",
-                userid: "48"
-            }
-        });
+            let numString="";
+            this.state.elements.forEach((e,i)=>{
+                if(i===5){
+                    numString=numString+e;
+                }else{
+                    numString=numString+e+",";
+                }
+            });
+            
+            //console.log("String: " + numString);
+            const parametri={"selectedNum": numString,
+                                "stake": 1
+                                };
+            //console.log("Objekt: ",parametri);
+            axios.post(` http://138.68.72.169:8000/api/tickets`, parametri, {
+                headers: {
+                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjA3MTJkYzdhLWEzNjctNDlhMi04ZTZhLWQ2YjVkYmQzMGUxMiIsImlhdCI6IjEyLjUuMjAyMS4gODo1OTowMCIsIklkIjoiNDgiLCJVc2VyTmFtZSI6InVzZXIzIiwiRmlyc3ROYW1lIjoiVG9pIiwiTGFzdE5hbWUiOiJUb25uaSIsImV4cCI6MTYyMDg5NjM0MCwiaXNzIjoiTHVja3lTaXhBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6Ikx1Y2t5U2l4U2VydmljZVBvc3RtYW5DbGllbnQifQ.pUDg24f8vNU2cCklY_oQ48JtPfqVauzVDtmMob4v_Uc",
+                    userid: "48"
+                }
+            });
+            
+            let emptyArray=[];
+            let tempStateNumbers=this.state.numbers;
+            
+            tempStateNumbers.forEach(element => {
+                element.added=false;
+            });
+            this.setState({
+                        numbers: tempStateNumbers,
+                        elements: emptyArray
+                })
+            
+        }else{
+            console.log("Nije odabrano 6 brojeva: ");
+        }
+    this.generateElements();
+    
+    
     }
     
     
