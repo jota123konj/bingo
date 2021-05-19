@@ -152,27 +152,56 @@ class TicketNumbers extends Component {
             element.added=false;
         });
         
-        let ind=index+1;
-        for (let i = ind%8; i < 49;) {
-            if(i===0){
-                i=8;
+        
+        if(this.checkColor(index)){
+            this.setState({
+                    numbers: tempStateNumbers,
+                    elements: tempTicketNumbers
+            })
+        }else{
+            
+            
+            let ind=index+1;
+            for (let i = ind%8; i < 49;) {
+                if(i===0){
+                    i=8;
+                }
+                tempTicketNumbers.push(i);
+                //console.log("addcolorNUmbers, i: "+i);
+                tempStateNumbers[i-1].added = true;
+                i=i+8;
             }
-            tempTicketNumbers.push(i);
-            //console.log("addcolorNUmbers, i: "+i);
-            tempStateNumbers[i-1].added = true;
-            i=i+8;
+            
+            if (tempTicketNumbers.length === 6) {
+                this.setState({
+                    numbers: tempStateNumbers,
+                    elements: tempTicketNumbers
+                })            
+            }
         }
         
-        if (tempTicketNumbers.length === 6) {
-            this.setState({
-                numbers: tempStateNumbers,
-                elements: tempTicketNumbers
-            })            
-        }
         
         this.generateElements();
     }
     
+    checkColor=(index)=>{
+        let modul=index+1;
+        modul=modul%8;
+        
+        let tempTicketNumbers=this.state.elements;
+        let brojac=0;
+        tempTicketNumbers.forEach(a => {
+            if((a%8)===modul){
+                brojac=brojac+1;
+            }
+        });
+        
+        if(brojac===6){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     
     toggleNumberTicket = (index) => {
@@ -183,7 +212,7 @@ class TicketNumbers extends Component {
             }else{
                 if (this.state.elements.length < 6) {
                     this.addTicketNumber(index);
-
+                    
                 }else{
                     return console.log('nemere više');
                 }
