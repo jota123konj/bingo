@@ -268,7 +268,20 @@ class TicketNumbers extends Component {
     
     
     }
-    
+    clearSelection = () => {
+        let emptyArray=[];
+            let tempStateNumbers=this.state.numbers;
+            
+            tempStateNumbers.forEach(element => {
+                element.added=false;
+            });
+            this.setState({
+                        numbers: tempStateNumbers,
+                        elements: emptyArray
+                })
+                
+    this.generateElements();
+    }
     
     render() {
         if(this.state.numbers !== undefined)
@@ -278,6 +291,7 @@ class TicketNumbers extends Component {
                         <div className = "numbersSelection">
                             {this.array}
                         </div>
+                        <button onClick = {this.clearSelection}>Clear selection</button>
                         <ActiveTicket clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>
                     </div>
             )
