@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './ActiveTicket.css'
 
 const ActiveTicket = (props) => {
-    const [ticketNumbers, setTicketNumbers] = useState([]);
     let ticketNumbersArray = []
     const generateNumbers = () => {
         console.log('generate nums');

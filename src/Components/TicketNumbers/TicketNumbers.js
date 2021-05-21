@@ -296,10 +296,10 @@ class TicketNumbers extends Component {
                         </div>
                         <div className = 'ticketButtonWrapper'>    
                             <button onClick = {this.clearSelection} className = 'ticketButton'>
-                                <i class="fas fa-trash"></i>
+                                <i className="fas fa-trash"></i>
                             </button>
                             <button onClick = {this.selectRandom} className = 'ticketButton'>
-                                <i class="fas fa-random"></i>
+                                <i className="fas fa-random"></i>
                             </button>
                         </div>
                         <ActiveTicket clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>

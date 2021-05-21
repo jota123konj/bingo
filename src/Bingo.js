@@ -33,7 +33,7 @@ class Bingo extends Component {
     let rundaSat=finish_time[0];
     
     let rS=rundaSat.split("");
-    if(rS[0]==0){//provjera da nema nule na početku
+    if(rS[0]===0){//provjera da nema nule na početku
       rundaSat=rS[1];
     }
     
