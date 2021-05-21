@@ -41,7 +41,10 @@ const ActiveTicket = (props) => {
     return(
         <div className = 'activeTicket'>
             <div className = 'ticket'>{ticketNumbersArray}</div>
-            <button onClick = {props.clickHandler} className = 'submit'>BID</button>
+            <div className="bidWrapper">
+                <input type="number" max = '100' min = '1' step = '0.05' placeholder = 'Bid 1-100'  className="bidAmount" />
+                <button onClick = {props.clickHandler} className = 'bid'>BID</button>
+            </div>
         </div>
     )
 } 

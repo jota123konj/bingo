@@ -40,7 +40,7 @@
     width: fit-content;
     height: fit-content;
     font: large bold;
-    margin-bottom: 4px;
+    margin: 6px 4px 4px 4px;
 }
 .ticketButton:hover {
     background-color: #242424;
