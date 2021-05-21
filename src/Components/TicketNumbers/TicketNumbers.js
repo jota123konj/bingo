@@ -282,6 +282,9 @@ class TicketNumbers extends Component {
                 
     this.generateElements();
     }
+    selectRandom = () =>{
+        console.log('random selected');
+    }
     
     render() {
         if(this.state.numbers !== undefined)
@@ -291,7 +294,14 @@ class TicketNumbers extends Component {
                         <div className = "numbersSelection">
                             {this.array}
                         </div>
-                        <button onClick = {this.clearSelection}>Clear selection</button>
+                        <div className = 'ticketButtonWrapper'>    
+                            <button onClick = {this.clearSelection} className = 'ticketButton'>
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button onClick = {this.selectRandom} className = 'ticketButton'>
+                                <i class="fas fa-random"></i>
+                            </button>
+                        </div>
                         <ActiveTicket clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>
                     </div>
             )

@@ -30,7 +30,24 @@
     border: 1px solid black;
     margin: 0.3rem 0.7rem;
 }
-
+.ticketButtonWrapper {
+    width: 20%;
+    justify-content: space-around;
+    display: flex;
+}
+.ticketButton {
+    padding: 2px 5px;
+    width: fit-content;
+    height: fit-content;
+    font: large bold;
+    margin-bottom: 4px;
+}
+.ticketButton:hover {
+    background-color: #242424;
+    color: white;
+    border-radius: 0;
+    transition: all 0.3s ease;
+  }
 
 
 

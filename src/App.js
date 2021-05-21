@@ -9,6 +9,7 @@ import RegisterModal from "./Components/RegisterModal/RegisterModal";
 import axios from "axios";
 import Tickets from './Tickets';
 import Bingo from './Bingo';
+import Timer from './Components/Timer/Timer'
 
 const instance = axios.create({
   headers: {
@@ -119,6 +120,7 @@ class App extends Component {
             <Route path="/" exact />
           </Switch>
         </Router>
+        <Timer></Timer>
         <div className="gameContainer">
           <Bingo/>
           <Tickets/>
