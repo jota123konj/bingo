@@ -227,9 +227,10 @@ class TicketNumbers extends Component {
     
     postTicket=()=>{
         
-        if(this.state.elements.length===6){
+        if(this.state.elements.length===6 && this.state.bid > 0){
         
             let numString="";
+            let bidString = this.state.bid.toString(10);
             this.state.elements.forEach((e,i)=>{
                 if(i===5){
                     numString=numString+e;
@@ -240,7 +241,7 @@ class TicketNumbers extends Component {
             
             //console.log("String: " + numString);
             const parametri={"selectedNum": numString,
-                                "stake": 1
+                                "stake": bidString
                                 };
             //console.log("Objekt: ",parametri);
             axios.post(` http://138.68.72.169:8000/api/tickets`, parametri, {
@@ -258,7 +259,8 @@ class TicketNumbers extends Component {
             });
             this.setState({
                         numbers: tempStateNumbers,
-                        elements: emptyArray
+                        elements: emptyArray,
+                        bid: 0
                 })
             
         }else{
@@ -285,6 +287,10 @@ class TicketNumbers extends Component {
     selectRandom = () =>{
         console.log('random selected');
     }
+    handleCallback = (childData) => {
+        this.setState({bid: childData});
+        console.log(childData)
+    }
     
     render() {
         if(this.state.numbers !== undefined)
@@ -299,7 +305,7 @@ class TicketNumbers extends Component {
                                 <i className="fas fa-trash"></i>
                             </button>
                             
-                        <ActiveTicket clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>
+                        <ActiveTicket bidAmountCallback = {this.handleCallback} bid = {this.state.bid} clickHandler = {this.postTicket}>{this.state.elements}</ActiveTicket>
                             <button onClick = {this.selectRandom} className = 'ticketButton'>
                                 <i className="fas fa-random"></i>
                             </button>

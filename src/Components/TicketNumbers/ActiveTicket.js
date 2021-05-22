@@ -15,6 +15,7 @@ const ActiveTicket = (props) => {
             }
         }
     }
+
     const Color = (number) => {
         switch (number%8){
             case 1:
@@ -41,10 +42,13 @@ const ActiveTicket = (props) => {
     return(
         <div className = 'activeTicket'>
             <div className = 'ticket'>{ticketNumbersArray}</div>
-            <div className="bidWrapper">
+            <form onChange = {event => props.bidAmountCallback(event.target.value)} className="bidWrapper">
                 <input type="number" max = '100' min = '1' step = '0.05' placeholder = 'Bid 1-100'  className="bidAmount" />
-                <button onClick = {props.clickHandler} className = 'bid'>BID</button>
-            </div>
+                {props.bid > 0 && props.bid && props.bid <= 100 ? 
+                    <button onClick = {props.clickHandler} className = 'bid'>BID</button>:
+                    <button disabled className = 'bidDisabled'>BID</button> 
+                }
+            </form>
         </div>
     )
 } 
