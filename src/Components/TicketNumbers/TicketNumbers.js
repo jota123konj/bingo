@@ -227,7 +227,7 @@ class TicketNumbers extends Component {
     
     postTicket=()=>{
         
-        if(this.state.elements.length===6 && this.state.bid > 0){
+        if(this.state.elements.length===6 && this.state.bid >= 1 && this.state.bid <= 100){
         
             let numString="";
             let bidString = this.state.bid.toString(10);
