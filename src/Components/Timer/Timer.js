@@ -7,7 +7,8 @@ class Timer extends Component{
     state = {
         start: null,
         vrijemeReseta: 0, //po defaultu je 7 minuta minus jedna sekunda, dakle 419*1000 milisekundi
-        vrijemeString: ""
+        vrijemeString: "",
+        ticking: false
     };
     
     preostaloVrijeme=(vrijeme)=>{
@@ -65,20 +66,32 @@ class Timer extends Component{
         
         this.setState({ start: res.data.startRoundTime});
         let vrijeme=(this.preostaloVrijeme(this.state.start)+1)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
-        this.setState({vrijemeReseta: vrijeme});
+        this.setState({vrijemeReseta: vrijeme, ticking: false, vrijemeString: ""});
         //console.log("vrijeme u state-u unutar getRunde-a nakon poyiva api-a za ready rundu: "+this.state.vrijemeReseta);
         //this.zoviRundu(this.state.vrijemeReseta);
+        console.log("vrijeme je dobavljeno, vrijeme reseta: "+this.state.vrijemeReseta);
+        if(this.state.ticking){
+            console.log("ticking je 'true'");
+        }else{
+            console.log("ticking je 'false'");
+        }
+        
         }).
         then(()=>{
-            //if(this.state.vrijemeReseta<120000){
-                
-                this.setState({vrijemeString: this.timeTillStart()})
+            if(this.state.vrijemeReseta<=120000){
+                console.log("vrijeme je manje od 120, ticking!");
+                this.setState({vrijemeString: this.timeTillStart(),ticking: true });
+                if(this.state.ticking){
+                    console.log("ticking je 'true'");
+                }else{
+                    console.log("ticking je 'false'");
+                }
                 this.ticking();
-            //}
+            }
         }).
         then(()=>{
             if(this.state.vrijemeReseta>120000){
-                let vrijeme=this.setState.vrijemeReseta-120000;
+                let vrijeme=this.state.vrijemeReseta-120000;
                 this.setState({vrijemeReseta: vrijeme});
             }
             this.resetTime(this.state.vrijemeReseta); 
@@ -92,8 +105,10 @@ class Timer extends Component{
         let time=this.state.vrijemeReseta;
         time=time/1000;
         timeString=timeString+time;
-        //console.log(timeString);
-        //console.log("funkcija timeTillStart je pozvana!!"); ovo ce tribat otkomentirat za development kasnije
+        ////////////
+        console.log(timeString);
+        console.log("funkcija timeTillStart je pozvana!!");
+        ////////////////
         let minute=0;
         let sekunde=0;
         minute=Math.floor(time/60);
@@ -106,18 +121,14 @@ class Timer extends Component{
     ticking=()=>{
         
         setTimeout(()=>{
-            if(this.state.vrijemeReseta>0){
-                /*this.timeUpdate().
-                then(()=>{
-                    this.ticking();
-                });
-                //console.log("ticking funkcija je pozvana, usla je u timeout");
-                */
+            if(this.state.ticking){
+                
                 let timeTillStart=this.state.vrijemeReseta-1000;
                 let timeTillStartString=this.timeTillStart();
                 this.setState({vrijemeReseta: timeTillStart, vrijemeString: timeTillStartString});
                 this.ticking();
             }
+            
         }, 1000);//jedna sekunda
         
     }
