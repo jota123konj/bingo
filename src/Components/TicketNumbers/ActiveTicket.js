@@ -44,7 +44,7 @@ const ActiveTicket = (props) => {
             <div className = 'ticket'>{ticketNumbersArray}</div>
             <form onChange = {event => props.bidAmountCallback(event.target.value)} className="bidWrapper">
                 <input type="number" max = '100' min = '1' step = '0.05' placeholder = 'Bid 1-100'  className="bidAmount" />
-                {props.bid >= 1 && props.bid && props.bid <= 100 && ticketNumbersArray === 6 ? 
+                {props.bid >= 1 && props.bid && props.bid <= 100 && props.children.length === 6 ? 
                     <button onClick = {props.clickHandler} className = 'bid'>BID</button>:
                     <button disabled className = 'bidDisabled'>BID</button> 
                 }
