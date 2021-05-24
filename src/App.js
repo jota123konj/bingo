@@ -7,10 +7,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginModal from "./Components/LoginModal/LoginModal";
 import RegisterModal from "./Components/RegisterModal/RegisterModal";
 import axios from "axios";
-import Tickets from './Tickets';
+import Tickets from './Components/Tickets/Tickets';
 import Bingo from './Bingo';
 import Timer from './Components/Timer/Timer';
-import CurrentTickets from './Components/CurrentTickets/CurrentTickets';
 
 const instance = axios.create({
   headers: {
@@ -108,10 +107,7 @@ class App extends Component {
       this.setState({ round: round });
     });
   }
-  tickets = [
-    '1,2,3,4,5,6',
-    '12,21,32,43,2,1'
-  ]
+
 
   render() {
     return (
@@ -128,10 +124,7 @@ class App extends Component {
         <Timer></Timer>
         <div className="gameContainer">
           <Bingo/>
-          <div className = 'column'>
-            <CurrentTickets tickets = {this.tickets}/>
-            <Tickets/>
-          </div>
+          <Tickets/>
         </div>
         <LoginModal
           isShowLogin={this.state.isShowLogin}
