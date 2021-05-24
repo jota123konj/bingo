@@ -18,6 +18,10 @@ body {
   display: flex;
   margin: 8px 5% 8px 5%;
 }
+.column{
+  display: flex;
+  flex-direction: column;
+}
 @media screen and (max-width: 800px) {
 
   .gameContainer {

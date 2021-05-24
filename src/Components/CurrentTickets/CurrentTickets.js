@@ -3,13 +3,36 @@ import './CurrentTickets.css';
 
 const CurrentTickets = (props) => {
     let tickets =  []
-    props.tickets.forEach((element, index) => {
-        tickets.push(
-            <div key = {index} className = 'ticketNumber'>
-                <p className = {Color}>{element}</p>
-            </div>
-        )
-    });
+    let a = null
+    const generateTicket = () => {
+        ticketSplitParse();
+        let ticketElement = [];
+        for (let i = 0; i < tickets.length; i++) {
+            ticketElement = [];
+            tickets[i].forEach((element, index) => {
+                ticketElement.push(
+                    <div key = {index} className = 'ticketNumber'>
+                        <p className = {Color(element)}>{element}</p>
+                    </div>
+                )
+            });
+            console.log(ticketElement);
+            tickets[i] = <div className = 'row'>{ticketElement}</div>;
+        }
+    }
+    
+    let ticketSplitParse = () => {
+        let tempArray = [];
+        for (let i = 0; i < props.tickets.length; i++) {
+            tempArray = props.tickets[i];
+            tempArray = tempArray.split(",");
+            for (let index = 0; index < tempArray.length; index++) {
+                tempArray[index] = parseInt(tempArray[index]);
+            }
+            tickets[i] = tempArray;
+        }
+    }
+
     const Color = (number) => {
         switch (number%8){
             case 1:
@@ -29,7 +52,8 @@ const CurrentTickets = (props) => {
             default:
                 return "black";
         }
-    }      
+    }
+    generateTicket();
     return(
         <div className = 'currentTickets'>
             {tickets}
