@@ -92,8 +92,8 @@ class Timer extends Component{
         let time=this.state.vrijemeReseta;
         time=time/1000;
         timeString=timeString+time;
-        console.log(timeString);
-        console.log("funkcija timeTillStart je pozvana!!");
+        //console.log(timeString);
+        //console.log("funkcija timeTillStart je pozvana!!"); ovo ce tribat otkomentirat za development kasnije
         let minute=0;
         let sekunde=0;
         minute=Math.floor(time/60);
