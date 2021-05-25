@@ -43,7 +43,7 @@ class Tickets extends Component {
     }).
     then(()=>{
       
-      let vrijeme=objekat.getTime();
+      let vrijeme=this.objekat.getTime();
       
       if(vrijeme>120000){
         vrijeme=vrijeme-120000;
@@ -75,7 +75,7 @@ class Tickets extends Component {
   }
   
   render() {
-    this.objekat.testnaFunkcija();
+    
     
     return (
       
