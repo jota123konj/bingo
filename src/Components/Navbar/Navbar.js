@@ -9,6 +9,16 @@ function Navbar(props) {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
+
+  const signinCombine = () => {
+    closeMobileMenu(); 
+    loginClick();
+  }
+
+  const registerCombine = () => {
+    closeMobileMenu();
+    registerClick();
+  }
   return (
     <div>
       <nav className="navbar">
@@ -24,7 +34,7 @@ function Navbar(props) {
               <Link
                 to="/Register"
                 className="nav-links"
-                onClick={(closeMobileMenu, registerClick)}
+                onClick={registerCombine}
               >
                 Register
               </Link>
@@ -33,7 +43,7 @@ function Navbar(props) {
               <Link
                 to="/SignIn"
                 className="nav-links"
-                onClick={(closeMobileMenu, loginClick)}
+                onClick={signinCombine}
               >
                 Sign in
               </Link>
