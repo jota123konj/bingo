@@ -30,7 +30,7 @@ const LoginModal = (props) => {
             <br></br>
             <input
               type="submit"
-              value="LOGIN"
+              value="SIGN IN"
               className="login-btn"
               onClick={props.handleLoginButton}
             />

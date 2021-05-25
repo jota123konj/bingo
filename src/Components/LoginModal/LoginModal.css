@@ -1,4 +1,5 @@
 .modal {
+  z-index: 2;
   position: absolute;
   top: 5.5rem;
   left: 0;

@@ -16,7 +16,7 @@ const RegisterModal = (props) => {
             <br></br>
             <input type="password" name="password" className="login-box" />{" "}
             <br></br>
-            <input type="submit" value="LOGIN" className="login-btn" />
+            <input type="submit" value="REGISTER" className="login-btn" />
           </form>
         </div>
       </div>
