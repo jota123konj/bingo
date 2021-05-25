@@ -91,7 +91,7 @@ class Bingo extends Component {
     let vrijeme;
     
     
-    axios.get(` http://138.68.72.169:8000/api/rounds/running`).then((res) => {
+    axios.get(` http://157.230.112.77:8000/api/rounds/running`).then((res) => {
         //console.log(res.data.drawnNum);
         this.setState({ brojevi: res.data.drawnNum,finish: res.data.finishRoundTime, loading: false, rundaGotova: false });
         vrijeme=(this.preostaloVrijeme(this.state.finish)+121)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
@@ -116,7 +116,7 @@ class Bingo extends Component {
       //ako nema runde koja je u tijeku, hvataj rundu u pripremi
       //console.log("error je uhvacen");
       if(this.state.loading){
-        axios.get(` http://138.68.72.169:8000/api/rounds/ready`).then((res) => {
+        axios.get(` http://157.230.112.77:8000/api/rounds/ready`).then((res) => {
         
           this.setState({ start: res.data.startRoundTime});
           vrijeme=(this.preostaloVrijeme(this.state.start)+1)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde

@@ -13,7 +13,7 @@ class TicketNumbers extends Component {
     }
     
     array = []
-
+    
     generateElements = () => {
         this.array = []
         let n0 = [];
@@ -238,6 +238,9 @@ class TicketNumbers extends Component {
                     numString=numString+e+",";
                 }
             });
+            ////////////////////////////////////////////////////////////////////
+            this.props.funkProp(numString);/////////////////////////////////////////////
+            
             
             //console.log("String: " + numString);
             const parametri={"selectedNum": numString,

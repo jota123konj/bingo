@@ -11,6 +11,10 @@ class Timer extends Component{
         ticking: false
     };
     
+    testnaFunkcija=()=>{
+        console.log("Pokrenuta je testna")
+    }
+    
     preostaloVrijeme=(vrijeme)=>{
         let finish_split=vrijeme.split("T");//this.state.finish/start
         let finish_time=finish_split[1].split(":");
@@ -62,7 +66,7 @@ class Timer extends Component{
     
     getTime=()=>{
         
-        axios.get(` http://138.68.72.169:8000/api/rounds/ready`).then((res) => {
+        axios.get(` http://157.230.112.77:8000/api/rounds/ready`).then((res) => {
         
         this.setState({ start: res.data.startRoundTime});
         let vrijeme=(this.preostaloVrijeme(this.state.start)+1)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
