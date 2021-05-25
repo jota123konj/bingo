@@ -263,7 +263,7 @@ class TicketNumbers extends Component {
             this.setState({
                         numbers: tempStateNumbers,
                         elements: emptyArray,
-                        bid: 0
+                        bid: ''
                 })
             
         }else{
