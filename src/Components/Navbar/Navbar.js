@@ -1,8 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Navbar.css";
 
 function Navbar(props) {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`http://157.230.112.77:8000/api/tokens`, {
+        headers: {
+          authorization: localStorage.getItem("session-id"),
+          userid: localStorage.getItem("user-id"),
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      });
+  });
   const loginClick = () => props.handleLoginClick();
   const registerClick = () => props.handleRegisterClick();
 
@@ -11,14 +26,14 @@ function Navbar(props) {
   const closeMobileMenu = () => setClick(false);
 
   const signinCombine = () => {
-    closeMobileMenu(); 
+    closeMobileMenu();
     loginClick();
-  }
+  };
 
   const registerCombine = () => {
     closeMobileMenu();
     registerClick();
-  }
+  };
   return (
     <div>
       <nav className="navbar">
@@ -29,26 +44,34 @@ function Navbar(props) {
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
           </div>
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li className="nav-item">
-              <Link
-                to="/Register"
-                className="nav-links"
-                onClick={registerCombine}
-              >
-                Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/SignIn"
-                className="nav-links"
-                onClick={signinCombine}
-              >
-                Sign in
-              </Link>
-            </li>
-          </ul>
+          {user == null ? (
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <li className="nav-item">
+                <Link
+                  to="/Register"
+                  className="nav-links"
+                  onClick={registerCombine}
+                >
+                  Register
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/SignIn"
+                  className="nav-links"
+                  onClick={signinCombine}
+                >
+                  Sign in
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <li className="nav-item">
+                <div>hehheh</div>
+              </li>
+            </ul>
+          )}
         </div>
       </nav>
     </div>

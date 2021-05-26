@@ -5,7 +5,10 @@ const LoginModal = (props) => {
   return (
     <div className={`${props.isShowLogin ? "" : "active"} show modal`}>
       <div className="login-form">
-        <div className="form-box solid">
+        <div className="form-box">
+          <button className="close-button" onClick={props.handleLoginClick}>
+            X
+          </button>
           <form>
             <h1 className="login-text">Sign In</h1>
             <label>Username</label>
