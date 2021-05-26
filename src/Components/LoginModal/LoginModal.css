@@ -1,5 +1,5 @@
 .modal {
-  z-index: 2;
+  z-index: 4;
   position: absolute;
   top: 5.5rem;
   left: 0;
@@ -14,7 +14,7 @@
 }
 .show {
   display: block;
-  transition: 1000ms;
+  transition: all 0.3s ease-out;
   opacity: 1;
   visibility: visible;
 }
@@ -31,21 +31,26 @@
   justify-content: center;
   align-items: center;
   justify-self: center;
-  z-index: 4;
 }
 
 .form-box {
+  position: relative;
+  z-index: 10;
   margin-top: 7vh;
-  opacity: 80%;
+  opacity: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background: black;
+  background: rgba(0, 0, 0, 0.9);
   padding-right: 80px;
   padding-left: 80px;
-  border-radius: 20px;
-  box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;  
+  box-shadow:
+   -2px -2px 10px rgba(255, 0, 0, 0.5),  
+    2px -2px 10px rgba(255, 0, 0, 0.5),
+    -2px 2px 10px rgba(255, 0, 0, 0.5),
+     2px 2px 10px rgba(255, 0, 0, 0.5)
 }
 
 .login-text {
@@ -109,4 +114,18 @@ label {
   letter-spacing: 4px;
   background-color: #7fffd4;
   color: #1e90ff;
+}
+.close-button {
+  font-size: large;
+  color: grey;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+.close-button:hover{
+  transition: all 0.3s ease-out;
+  color: black;
+  border: 1px solid black;
 }

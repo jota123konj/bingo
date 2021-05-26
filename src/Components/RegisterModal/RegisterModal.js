@@ -1,11 +1,14 @@
 import React from "react";
-import "./RegisterModal.css";
+import "../LoginModal/LoginModal.css";
 
 const RegisterModal = (props) => {
   return (
     <div className={`${props.isShowRegister ? "" : "active"} show modal`}>
       <div className="login-form">
-        <div className="form-box solid">
+        <div className="form-box">
+          <button className="close-button" onClick={props.handleRegisterClick}>
+            <i className="fas fa-times"></i>
+          </button>
           <form>
             <h1 className="login-text">Register</h1>
             <label>Username</label>
