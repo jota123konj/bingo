@@ -7,7 +7,7 @@ const LoginModal = (props) => {
       <div className="login-form">
         <div className="form-box">
           <button className="close-button" onClick={props.handleLoginClick}>
-            X
+            <i className="fas fa-times"></i>
           </button>
           <form>
             <h1 className="login-text">Sign In</h1>

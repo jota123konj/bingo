@@ -7,7 +7,7 @@ const RegisterModal = (props) => {
       <div className="login-form">
         <div className="form-box">
           <button className="close-button" onClick={props.handleRegisterClick}>
-            X
+            <i className="fas fa-times"></i>
           </button>
           <form>
             <h1 className="login-text">Register</h1>
