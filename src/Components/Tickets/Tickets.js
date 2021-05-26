@@ -26,7 +26,7 @@ class Tickets extends Component {
   }
   
   getActiveTickets=()=>{
-    axios.get(` http://138.68.72.169:8000/api/rounds/ready`).
+    axios.get(` http://157.230.112.77/:8000/api/rounds/ready`).
     then((res) => {
         let tempTickets=[];//ovde ih stavim sve, pa ih u ove donje razvrstam u for petlji
         let tempTicketsRunning=[];
@@ -76,7 +76,7 @@ class Tickets extends Component {
   
   render() {
     
-    
+        
     return (
       
       <div>

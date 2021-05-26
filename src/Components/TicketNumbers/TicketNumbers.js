@@ -247,9 +247,9 @@ class TicketNumbers extends Component {
                                 "stake": bidString
                                 };
             //console.log("Objekt: ",parametri);
-            axios.post(` http://138.68.72.169:8000/api/tickets`, parametri, {
+            axios.post(` http://157.230.112.77:8000/api/tickets`, parametri, {
                 headers: {
-                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjA3MTJkYzdhLWEzNjctNDlhMi04ZTZhLWQ2YjVkYmQzMGUxMiIsImlhdCI6IjEyLjUuMjAyMS4gODo1OTowMCIsIklkIjoiNDgiLCJVc2VyTmFtZSI6InVzZXIzIiwiRmlyc3ROYW1lIjoiVG9pIiwiTGFzdE5hbWUiOiJUb25uaSIsImV4cCI6MTYyMDg5NjM0MCwiaXNzIjoiTHVja3lTaXhBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6Ikx1Y2t5U2l4U2VydmljZVBvc3RtYW5DbGllbnQifQ.pUDg24f8vNU2cCklY_oQ48JtPfqVauzVDtmMob4v_Uc",
+                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjJmOTdlN2QzLWFhZDktNDNhYy1iYjQ3LTllZWU4NzZkNTQ4NCIsImlhdCI6IjA1LzI2LzIwMjEgMTE6NDc6NTkiLCJJZCI6IjQ4IiwiVXNlck5hbWUiOiJ1c2VyMyIsIkZpcnN0TmFtZSI6IlRvaSIsIkxhc3ROYW1lIjoiVG9ubmkiLCJleHAiOjE2MjIxMTYwNzksImlzcyI6Ikx1Y2t5U2l4QXV0aGVudGljYXRpb25TZXJ2ZXIiLCJhdWQiOiJMdWNreVNpeFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.YaNnjquXyN-j2l0H8-pRJOuiRPWC61FJPXCYz8ThMcQ",
                     userid: "48"
                 }
             });
@@ -287,8 +287,67 @@ class TicketNumbers extends Component {
                 
     this.generateElements();
     }
+    
+    rng=()=>{
+        let svi=[];
+        let izvuceni=[];
+        for(let i=1;i<49;i++){
+            svi[i]=i;
+        }
+        let rnd=0;
+        let ukupni=48;
+        for(let i=0;i<6;i++){
+            rnd=Math.floor((Math.floor((Math.random()*100)+1))*(ukupni/100));
+            izvuceni[i]=svi[rnd];
+            svi=svi.filter(broj=>broj!==svi[rnd]);
+            ukupni--;
+            
+        }
+        
+        return izvuceni;
+    }
+    
     selectRandom = () =>{
-        console.log('random selected');
+        
+        let tempTicketNumbers = [];
+        tempTicketNumbers=this.rng();
+        let tempStateNumbers = this.state.numbers
+        
+        let tempArray=tempTicketNumbers;
+        
+        tempStateNumbers.forEach(element => {
+            element.added=false;
+        });
+        
+        for(let i=1;i<49;i++){
+            for(let a=0;a<tempArray.length;a++){
+                
+                if(tempStateNumbers[i].key===tempArray[a]){
+                    tempStateNumbers[i].added=true;
+                    tempArray=tempArray.filter(element=>element!==tempArray[a]);
+                    console.log(tempArray);
+                }
+                
+            }
+        }
+        this.setState({
+                    numbers: tempStateNumbers,
+                    elements: tempTicketNumbers
+                });
+        
+        this.generateElements();
+        
+        /*
+        axios.get(` http://157.230.112.77:8000/api/tickets`, {
+            headers: {
+                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjJmOTdlN2QzLWFhZDktNDNhYy1iYjQ3LTllZWU4NzZkNTQ4NCIsImlhdCI6IjA1LzI2LzIwMjEgMTE6NDc6NTkiLCJJZCI6IjQ4IiwiVXNlck5hbWUiOiJ1c2VyMyIsIkZpcnN0TmFtZSI6IlRvaSIsIkxhc3ROYW1lIjoiVG9ubmkiLCJleHAiOjE2MjIxMTYwNzksImlzcyI6Ikx1Y2t5U2l4QXV0aGVudGljYXRpb25TZXJ2ZXIiLCJhdWQiOiJMdWNreVNpeFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.YaNnjquXyN-j2l0H8-pRJOuiRPWC61FJPXCYz8ThMcQ",
+                    userid: "48"
+                }
+        }).
+        then((res) => {
+            console.log(res.data);
+         });
+        */
     }
     handleCallback = (childData) => {
         this.setState({bid: childData});
