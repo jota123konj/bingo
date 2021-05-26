@@ -28,8 +28,25 @@
 }
 
 .nav-item {
+  color: white;
   display: flex;
   transition: all 0.3s ease-out;
+}
+.loggedIn {
+  margin: 0 4px;
+}
+.signOut {
+  transition: all 0.3s ease-out;
+  font-size: 1rem;
+  border: 0;
+  background-color: transparent;
+  color: white;
+  margin: 0 4px;
+}
+.signOut:hover{
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+  color: gray;
 }
 .nav-links {
   font-size: 1.2rem;

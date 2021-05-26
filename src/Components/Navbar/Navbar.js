@@ -34,6 +34,10 @@ function Navbar(props) {
     closeMobileMenu();
     registerClick();
   };
+  const signOut = () => {
+    setUser(null);
+    localStorage.clear()
+  }
   return (
     <div>
       <nav className="navbar">
@@ -41,36 +45,42 @@ function Navbar(props) {
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             Beengo
           </Link>
-          <div className="menu-icon" onClick={handleClick}>
-            <i className={click ? "fas fa-times" : "fas fa-bars"} />
-          </div>
           {user == null ? (
-            <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className="nav-item">
-                <Link
-                  to="/Register"
-                  className="nav-links"
-                  onClick={registerCombine}
-                >
-                  Register
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/SignIn"
-                  className="nav-links"
-                  onClick={signinCombine}
-                >
-                  Sign in
-                </Link>
-              </li>
-            </ul>
+          <div className = 'navbar-container'>
+            <div className="menu-icon" onClick={handleClick}>
+              <i className={click ? "fas fa-times" : "fas fa-bars"} />
+            </div>
+              <ul className={click ? "nav-menu active" : "nav-menu"}>
+                <li className="nav-item">
+                  <Link
+                    to="/Register"
+                    className="nav-links"
+                    onClick={registerCombine}
+                  >
+                    Register
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/SignIn"
+                    className="nav-links"
+                    onClick={signinCombine}
+                  >
+                    Sign in
+                  </Link>
+                </li>
+              </ul>
+            </div>
           ) : (
             <ul className={click ? "nav-menu active" : "nav-menu"}>
               <li className="nav-item">
-                <div>hehheh</div>
+                <div className = 'loggedIn'>{user.username}</div>
+                <div className = 'loggedIn'>Balance: {user.balance}</div>
+                <button onClick = {signOut}className = 'signOut'>Sign Out</button>
+
               </li>
             </ul>
+            
           )}
         </div>
       </nav>
