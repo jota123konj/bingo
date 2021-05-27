@@ -239,7 +239,7 @@ class TicketNumbers extends Component {
                 }
             });
             ////////////////////////////////////////////////////////////////////
-            this.props.funkProp();/////////////////////////////////////////////
+            this.props.funkProp(numString);/////////////////////////////////////////////
             
             
             //console.log("String: " + numString);
@@ -326,7 +326,7 @@ class TicketNumbers extends Component {
                 if(tempStateNumbers[i].key===tempArray[a]){
                     tempStateNumbers[i].added=true;
                     tempArray=tempArray.filter(element=>element!==tempArray[a]);
-                    console.log(tempArray);
+                    //console.log(tempArray);
                 }
                 
             }
@@ -338,24 +338,15 @@ class TicketNumbers extends Component {
         
         this.generateElements();
         
-        /*
-        axios.get(` http://157.230.112.77:8000/api/tickets`, {
-            headers: {
-                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6IjJmOTdlN2QzLWFhZDktNDNhYy1iYjQ3LTllZWU4NzZkNTQ4NCIsImlhdCI6IjA1LzI2LzIwMjEgMTE6NDc6NTkiLCJJZCI6IjQ4IiwiVXNlck5hbWUiOiJ1c2VyMyIsIkZpcnN0TmFtZSI6IlRvaSIsIkxhc3ROYW1lIjoiVG9ubmkiLCJleHAiOjE2MjIxMTYwNzksImlzcyI6Ikx1Y2t5U2l4QXV0aGVudGljYXRpb25TZXJ2ZXIiLCJhdWQiOiJMdWNreVNpeFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.YaNnjquXyN-j2l0H8-pRJOuiRPWC61FJPXCYz8ThMcQ",
-                    userid: "48"
-                }
-        }).
-        then((res) => {
-            console.log(res.data);
-         });
-        */
     }
+    
     handleCallback = (childData) => {
         this.setState({bid: childData});
         console.log(childData)
     }
     
     render() {
+        console.log("TicketNumbers render!");
         if(this.state.numbers !== undefined)
             {
                 return(

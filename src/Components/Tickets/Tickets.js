@@ -19,11 +19,36 @@ class Tickets extends Component {
   
   
   ticketsUpdate=(parametar)=>{    
-    let tempTickets=this.state.ticketsReady;
+    let tempTickets=this.state.ticketsJustNumbers;
     tempTickets.push(parametar);
     
-    this.setState({ticketsReady: tempTickets});
+    this.setState({ticketsJustNumbers: tempTickets});
     
+  }
+  
+  samoGet=()=>{
+    axios.get(` http://157.230.112.77:8000/api/tickets`, {
+                headers: {
+                    authorization: localStorage.getItem("session-id"),
+                    userid: localStorage.getItem("user-id")
+                }}).
+    then((res) => {
+        let tempTickets=[];
+        let tempTicketsRunning=[];
+        let tempTicketsReady=[];
+        let tempTicketsJustNumbers=[];
+        tempTickets=res.data;
+        for(let i=0;i<tempTickets.length;i++){
+          if(res.data[i].status==="2"){
+            tempTicketsRunning.push(res.data[i]);
+          }else{
+            tempTicketsReady.push(res.data[i]);
+          }
+          tempTicketsJustNumbers.push(res.data[i].selectedNum);
+        }
+        
+        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+    });
   }
   
   getActiveTickets=()=>{
@@ -33,7 +58,7 @@ class Tickets extends Component {
                     userid: localStorage.getItem("user-id")
                 }}).
     then((res) => {
-        let tempTickets=[];//ovde ih stavim sve, pa ih u ove donje razvrstam u for petlji
+        let tempTickets=[];
         let tempTicketsRunning=[];
         let tempTicketsReady=[];
         let tempTicketsJustNumbers=[];
@@ -49,9 +74,9 @@ class Tickets extends Component {
         
         this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
     }).
-    then(()=>{
+    then(async ()=>{
+      let vrijeme=await this.objekat.getTime();
       
-      let vrijeme=this.objekat.getTime();
       
       if(vrijeme>120000){
         vrijeme=vrijeme-120000;
@@ -60,15 +85,19 @@ class Tickets extends Component {
       }
       
       this.resetTicketList(vrijeme);
+      
     });
+    
   }
   
-  
+  async ffTime(){
+    let vrijeme=0;
+    vrijeme=await this.objekat.getTime();
+    return vrijeme;
+  }
   
   resetTicketList=(vrijeme)=>{
-    
     setTimeout(()=>{
-      
       this.getActiveTickets();
       
     }, vrijeme);
@@ -76,20 +105,19 @@ class Tickets extends Component {
   }
   
   componentDidMount(){
-    
     this.getActiveTickets();
     
     
   }
   
   render() {
-    
+    console.log("Tickets render!");
         
     return (
       
       <div>
         <CurrentTickets tickets = {this.state.ticketsJustNumbers}/>
-        <TicketNumbers funkProp={this.getActiveTickets}/>
+        <TicketNumbers funkProp={this.ticketsUpdate}/>
       </div>
     );
   }
@@ -148,18 +176,17 @@ class Timer {
     return rez;//vrijeme do kraja
   }
   
-  getTime=()=>{
+  async getTime(){
     
     let vrijeme=0;
     
-    axios.get(` http://157.230.112.77:8000/api/rounds/ready`).
+    await axios.get(` http://157.230.112.77:8000/api/rounds/ready`).
     then((res) => {
     //this.setState({ start: res.data.startRoundTime});
     vrijeme=(this.preostaloVrijeme(res.data.startRoundTime)+1)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
     //this.setState({vrijemeReseta: vrijeme, ticking: false, vrijemeString: ""});
     
     });
-    
     return vrijeme;
   }
   

@@ -39,6 +39,7 @@ const ActiveTicket = (props) => {
 
     generateNumbers();
     //value={props.bid}
+    console.log("ActiveTicket render!");
     return(
         <div className = 'activeTicket'>
             <div className = 'ticket'>{ticketNumbersArray}</div>
