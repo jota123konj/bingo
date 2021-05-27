@@ -239,7 +239,7 @@ class TicketNumbers extends Component {
                 }
             });
             ////////////////////////////////////////////////////////////////////
-            this.props.funkProp(numString);/////////////////////////////////////////////
+            this.props.funkProp();/////////////////////////////////////////////
             
             
             //console.log("String: " + numString);

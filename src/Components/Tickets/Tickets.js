@@ -12,7 +12,8 @@ class Tickets extends Component {
     ticketsReady: [],
     ticketsRunning: [],
     roundFinished: false,
-    vrijemeReseta: 0
+    vrijemeReseta: 0,
+    ticketsJustNumbers: []
   }
   objekat=new Timer();
   
@@ -26,20 +27,27 @@ class Tickets extends Component {
   }
   
   getActiveTickets=()=>{
-    axios.get(` http://157.230.112.77/:8000/api/rounds/ready`).
+    axios.get(` http://157.230.112.77:8000/api/tickets`, {
+                headers: {
+                    authorization: localStorage.getItem("session-id"),
+                    userid: localStorage.getItem("user-id")
+                }}).
     then((res) => {
         let tempTickets=[];//ovde ih stavim sve, pa ih u ove donje razvrstam u for petlji
         let tempTicketsRunning=[];
         let tempTicketsReady=[];
+        let tempTicketsJustNumbers=[];
+        tempTickets=res.data;
         for(let i=0;i<tempTickets.length;i++){
-          if(res.data.status==="running"){
-            tempTicketsRunning.push(res.data.nesto);
+          if(res.data[i].status==="2"){
+            tempTicketsRunning.push(res.data[i]);
           }else{
-            tempTicketsReady.push(res.data.nesto);
+            tempTicketsReady.push(res.data[i]);
           }
+          tempTicketsJustNumbers.push(res.data[i].selectedNum);
         }
         
-        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning});
+        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
     }).
     then(()=>{
       
@@ -69,7 +77,7 @@ class Tickets extends Component {
   
   componentDidMount(){
     
-    //this.getActiveTickets();
+    this.getActiveTickets();
     
     
   }
@@ -80,8 +88,8 @@ class Tickets extends Component {
     return (
       
       <div>
-        <CurrentTickets tickets = {this.state.ticketsReady}/>
-        <TicketNumbers funkProp={this.ticketsUpdate}/>
+        <CurrentTickets tickets = {this.state.ticketsJustNumbers}/>
+        <TicketNumbers funkProp={this.getActiveTickets}/>
       </div>
     );
   }
