@@ -1,43 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
+import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../RegisterModal/RegisterModal';
 
 function Navbar(props) {
-  const [user, setUser] = useState();
+  const [click, setClick] = useState(false)
+  const [clickLogin, setClickLogin] = useState(false);
+  const [clickRegister, setClickRegister] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get(`http://157.230.112.77:8000/api/tokens`, {
-        headers: {
-          authorization: localStorage.getItem("session-id"),
-          userid: localStorage.getItem("user-id"),
-        },
-      })
-      .then((res) => {
-        setUser(res.data);
-      });
-  });
-  const loginClick = () => props.handleLoginClick();
-  const registerClick = () => props.handleRegisterClick();
+  const [userName, setUserName] = useState("");
+  const [userPwd, setUserPwd] = useState("");
+  const [userBalance, setUserBalance]  = useState(0);
+  const usernameInput = (username) => setUserName(username);
+  const passwordInput = (password) => setUserPwd(password);
 
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
-
-  const signinCombine = () => {
-    closeMobileMenu();
-    loginClick();
-  };
-
-  const registerCombine = () => {
-    closeMobileMenu();
-    registerClick();
-  };
-  const signOut = () => {
-    setUser(null);
-    localStorage.clear()
+  const handleClick = (func, param) => {
+    func(!param);
+    setClick(false)
+    }
+  const closeMobileMenu = () => {
+    setClickRegister(false);
+    setClickLogin(false);
   }
+
+  const handleLoginButton = () => {
+    // if (userName && userPwd) {
+    //   let loginData = {
+    //     Username: userName,
+    //     Password: userPwd
+    //   }
+    //   axios
+    //   .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
+    //     headers: {
+    //       authorization: localStorage.getItem("session-id"),
+    //       userid: localStorage.getItem("user-id"),
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //     setUserName(res.data.username);
+    //     setUserBalance(res.data.balance);
+    props.loggedBoolSetter(true);
+    //     localStorage.setItem("session-id", res.headers.authorization);
+    //     localStorage.setItem("user-id", res.headers.userid);
+    //   });
+      closeMobileMenu();
+    // }
+  }
+  const signOut = () => {
+    localStorage.clear();
+    // setUserBalance(0);
+    // setUserName("");
+    // setUserPwd("");
+    props.loggedBoolSetter(false);
+    console.log(props.loggedBool)
+  }
+
   return (
     <div>
       <nav className="navbar">
@@ -45,7 +66,68 @@ function Navbar(props) {
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             Beengo
           </Link>
-          {user == null ? (
+
+
+          {props.loggedBool === false ? 
+          <div>
+            <div className="menu-icon" onClick={() => {setClick(!click)}}>
+                <i className={click ? "fas fa-times" : "fas fa-bars"} />
+            </div>
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <li className = 'nav-item'>
+                <Link
+                  to="/Register"
+                  className="nav-links"
+                  onClick={() => {handleClick(setClickRegister, clickRegister)}}
+                  >
+                  Register
+                </Link>
+              </li>
+              <li className = 'nav-item'>
+                <Link
+                  to="/SignIn"
+                  className="nav-links"
+                  onClick={() => {handleClick(setClickLogin, clickLogin)}}
+                  >
+                  Sign in
+                </Link>
+              </li>
+            </ul>
+          </div> :
+          <ul className = "menu-logged">
+            <li className = 'loggedIn'>userName</li>
+            <li className = 'loggedIn'>Balance: {userBalance}</li>
+            <li onClick = {signOut} className = 'signOut'>Sign Out</li>
+          </ul>
+        }
+        </div>
+      </nav>
+      
+      
+      <LoginModal
+        username = {userName}
+        usernameInput = {usernameInput}
+        password = {userPwd}
+        passwordInput = {passwordInput}
+        isShowLogin = {clickLogin}
+        handleLoginClick = {closeMobileMenu}
+        handleLoginButton = {handleLoginButton}
+      />
+      <RegisterModal
+        isShowRegister = {clickRegister}
+        handleRegisterClick = {closeMobileMenu}
+      />
+    </div>
+  );
+}
+
+export default Navbar;
+// <nav className = "navbar-logged">
+//   <div className="container-logged">
+//   </div>
+// </nav>
+          
+          {/* {user == null ? (
           <div className = 'navbar-container'>
             <div className="menu-icon" onClick={handleClick}>
               <i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -81,13 +163,4 @@ function Navbar(props) {
               </li>
             </ul>
             
-          )}
-        </div>
-      </nav>
-    </div>
-  );
-}
-
-export default Navbar;
-
-//
+          )} */}

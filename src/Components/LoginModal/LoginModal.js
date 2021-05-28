@@ -18,8 +18,8 @@ const LoginModal = (props) => {
               name="username"
               className="login-box"
               value={props.username}
-              onChange={props.usernameInput}
-            />{" "}
+              onChange={event => props.usernameInput(event.target.value)}
+            />
             <br></br>
             <label>Password</label>
             <br></br>
@@ -28,8 +28,8 @@ const LoginModal = (props) => {
               name="password"
               className="login-box"
               value={props.password}
-              onChange={props.passwordInput}
-            />{" "}
+              onChange={event => props.passwordInput(event.target.value)}
+            />
             <br></br>
             <input
               type="submit"

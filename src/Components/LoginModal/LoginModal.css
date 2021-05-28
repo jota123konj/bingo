@@ -116,6 +116,7 @@ label {
   color: #1e90ff;
 }
 .close-button {
+  transition: all 0.3s ease-out;
   font-size: large;
   color: grey;
   position: absolute;
@@ -128,4 +129,5 @@ label {
   transition: all 0.3s ease-out;
   color: black;
   border: 1px solid black;
+  border-radius: 30%;
 }
