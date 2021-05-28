@@ -111,7 +111,7 @@ class Tickets extends Component {
     return (
       
       <div>
-        <CurrentTickets tickets = {this.state.ticketsJustNumbers}/>
+        <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/>
         <TicketNumbers funkProp={this.samoGet}/>
       </div>
     );

@@ -21,6 +21,10 @@ const CurrentTickets = (props) => {
         }
     }
     
+    props.ticketsReady[0-ticketsReady.length].selectedNum
+    props.ticketsReady[0-ticketsReady.length].stake
+
+    
     let ticketSplitParse = () => {
         let tempArray = [];
         for (let i = 0; i < props.tickets.length; i++) {
