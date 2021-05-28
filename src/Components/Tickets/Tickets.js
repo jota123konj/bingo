@@ -48,6 +48,7 @@ class Tickets extends Component {
         }
         
         this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+        console.log("samoGet je setao state!");
     });
   }
   
@@ -90,11 +91,6 @@ class Tickets extends Component {
     
   }
   
-  async ffTime(){
-    let vrijeme=0;
-    vrijeme=await this.objekat.getTime();
-    return vrijeme;
-  }
   
   resetTicketList=(vrijeme)=>{
     setTimeout(()=>{
@@ -111,13 +107,12 @@ class Tickets extends Component {
   }
   
   render() {
-    console.log("Tickets render!");
-        
+    
     return (
       
       <div>
         <CurrentTickets tickets = {this.state.ticketsJustNumbers}/>
-        <TicketNumbers funkProp={this.ticketsUpdate}/>
+        <TicketNumbers funkProp={this.samoGet}/>
       </div>
     );
   }

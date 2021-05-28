@@ -238,8 +238,8 @@ class TicketNumbers extends Component {
                     numString=numString+e+",";
                 }
             });
-            ////////////////////////////////////////////////////////////////////
-            this.props.funkProp(numString);/////////////////////////////////////////////
+            ///////////////numString/////////////////////////////////////////////////////
+            //this.props.funkProp();/////////////////////////////////////////////
             
             
             //console.log("String: " + numString);
@@ -253,7 +253,7 @@ class TicketNumbers extends Component {
                     authorization: localStorage.getItem("session-id"),
                     userid: "48"
                 }
-            });
+            }).then(()=>this.props.funkProp());
             
             let emptyArray=[];
             let tempStateNumbers=this.state.numbers;
