@@ -292,13 +292,13 @@ class TicketNumbers extends Component {
     rng=()=>{
         let svi=[];
         let izvuceni=[];
-        for(let i=1;i<49;i++){
-            svi[i]=i;
+        for(let i=0;i<48;i++){
+            svi[i]=i+1;
         }
         let rnd=0;
         let ukupni=48;
         for(let i=0;i<6;i++){
-            rnd=Math.floor((Math.floor((Math.random()*100)+1))*(ukupni/100));
+            rnd=Math.floor(Math.random()*ukupni);
             izvuceni[i]=svi[rnd];
             svi=svi.filter(broj=>broj!==svi[rnd]);
             ukupni--;
