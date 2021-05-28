@@ -12,38 +12,72 @@ class Tickets extends Component {
     ticketsReady: [],
     ticketsRunning: [],
     roundFinished: false,
-    vrijemeReseta: 0
+    vrijemeReseta: 0,
+    ticketsJustNumbers: []
   }
   objekat=new Timer();
   
   
   ticketsUpdate=(parametar)=>{    
-    let tempTickets=this.state.ticketsReady;
+    let tempTickets=this.state.ticketsJustNumbers;
     tempTickets.push(parametar);
     
-    this.setState({ticketsReady: tempTickets});
+    this.setState({ticketsJustNumbers: tempTickets});
     
   }
   
-  getActiveTickets=()=>{
-    axios.get(` http://157.230.112.77/:8000/api/rounds/ready`).
+  samoGet=()=>{
+    axios.get(` http://157.230.112.77:8000/api/tickets`, {
+                headers: {
+                    authorization: localStorage.getItem("session-id"),
+                    userid: localStorage.getItem("user-id")
+                }}).
     then((res) => {
-        let tempTickets=[];//ovde ih stavim sve, pa ih u ove donje razvrstam u for petlji
+        let tempTickets=[];
         let tempTicketsRunning=[];
         let tempTicketsReady=[];
+        let tempTicketsJustNumbers=[];
+        tempTickets=res.data;
         for(let i=0;i<tempTickets.length;i++){
-          if(res.data.status==="running"){
-            tempTicketsRunning.push(res.data.nesto);
+          if(res.data[i].status==="2"){
+            tempTicketsRunning.push(res.data[i]);
           }else{
-            tempTicketsReady.push(res.data.nesto);
+            tempTicketsReady.push(res.data[i]);
           }
+          tempTicketsJustNumbers.push(res.data[i].selectedNum);
         }
         
-        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning});
+        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+        console.log("samoGet je setao state!");
+    });
+  }
+  
+  getActiveTickets=()=>{
+    axios.get(` http://157.230.112.77:8000/api/tickets`, {
+                headers: {
+                    authorization: localStorage.getItem("session-id"),
+                    userid: localStorage.getItem("user-id")
+                }}).
+    then((res) => {
+        let tempTickets=[];
+        let tempTicketsRunning=[];
+        let tempTicketsReady=[];
+        let tempTicketsJustNumbers=[];
+        tempTickets=res.data;
+        for(let i=0;i<tempTickets.length;i++){
+          if(res.data[i].status==="2"){
+            tempTicketsRunning.push(res.data[i]);
+          }else{
+            tempTicketsReady.push(res.data[i]);
+          }
+          tempTicketsJustNumbers.push(res.data[i].selectedNum);
+        }
+        
+        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
     }).
-    then(()=>{
+    then(async ()=>{
+      let vrijeme=await this.objekat.getTime();
       
-      let vrijeme=this.objekat.getTime();
       
       if(vrijeme>120000){
         vrijeme=vrijeme-120000;
@@ -52,15 +86,14 @@ class Tickets extends Component {
       }
       
       this.resetTicketList(vrijeme);
+      
     });
+    
   }
   
   
-  
   resetTicketList=(vrijeme)=>{
-    
     setTimeout(()=>{
-      
       this.getActiveTickets();
       
     }, vrijeme);
@@ -68,20 +101,18 @@ class Tickets extends Component {
   }
   
   componentDidMount(){
-    
-    //this.getActiveTickets();
+    this.getActiveTickets();
     
     
   }
   
   render() {
     
-        
     return (
       
       <div>
-        <CurrentTickets tickets = {this.state.ticketsReady}/>
-        <TicketNumbers funkProp={this.ticketsUpdate}/>
+        <CurrentTickets tickets = {this.state.ticketsJustNumbers}/>
+        <TicketNumbers funkProp={this.samoGet}/>
       </div>
     );
   }
@@ -140,18 +171,17 @@ class Timer {
     return rez;//vrijeme do kraja
   }
   
-  getTime=()=>{
+  async getTime(){
     
     let vrijeme=0;
     
-    axios.get(` http://157.230.112.77:8000/api/rounds/ready`).
+    await axios.get(` http://157.230.112.77:8000/api/rounds/ready`).
     then((res) => {
     //this.setState({ start: res.data.startRoundTime});
     vrijeme=(this.preostaloVrijeme(res.data.startRoundTime)+1)*1000;//ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
     //this.setState({vrijemeReseta: vrijeme, ticking: false, vrijemeString: ""});
     
     });
-    
     return vrijeme;
   }
   

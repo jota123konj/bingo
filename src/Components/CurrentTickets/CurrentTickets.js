@@ -16,7 +16,7 @@ const CurrentTickets = (props) => {
                     </div>
                 )
             });
-            console.log(ticketElement);
+            //console.log(ticketElement);
             tickets[i] = <div className = 'row'>{ticketElement}</div>;
         }
     }
@@ -53,6 +53,7 @@ const CurrentTickets = (props) => {
                 return "black";
         }
     }
+    console.log("currentTickets render!");
     generateTicket();
     return(
         <div className = 'currentTickets'>
