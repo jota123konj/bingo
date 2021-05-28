@@ -24,41 +24,63 @@ function Navbar(props) {
     setClickRegister(false);
     setClickLogin(false);
   }
-
-  const handleLoginButton = () => {
-    // if (userName && userPwd) {
-    //   let loginData = {
-    //     Username: userName,
-    //     Password: userPwd
-    //   }
-    //   axios
-    //   .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
-    //     headers: {
-    //       authorization: localStorage.getItem("session-id"),
-    //       userid: localStorage.getItem("user-id"),
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //     setUserName(res.data.username);
-    //     setUserBalance(res.data.balance);
+  
+  
+  const handleLoginButton = (event) => {
+    event.preventDefault();
+    if (userName && userPwd) {
+      let loginData = {
+        Username: userName,
+        Password: userPwd
+      }
+      axios
+      .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
+        headers: {
+          authorization: sessionStorage.getItem("session-id"),
+          userid: sessionStorage.getItem("user-id"),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setUserName(res.data.username);
+        setUserBalance(res.data.balance);
     props.loggedBoolSetter(true);
-    //     localStorage.setItem("session-id", res.headers.authorization);
-    //     localStorage.setItem("user-id", res.headers.userid);
-    //   });
+        sessionStorage.setItem("session-id", res.headers.authorization);
+        sessionStorage.setItem("user-id", res.headers.userid);
+        sessionStorage.setItem("logged-in", "true");
+      });
       closeMobileMenu();
-    // }
+    }
   }
   const signOut = () => {
-    localStorage.clear();
-    // setUserBalance(0);
-    // setUserName("");
-    // setUserPwd("");
+    sessionStorage.clear();
+    setUserBalance(0);
+    setUserName("");
+    setUserPwd("");
     props.loggedBoolSetter(false);
-    console.log(props.loggedBool)
-  }
+    console.log(props.loggedBool);
+    //sessionStorage.setItem("logged-in", "false");
 
+  }
+  
+  const gokurac=()=>{
+    axios
+      .get(`http://157.230.112.77:8000/api/tokens`, {
+        headers: {
+          authorization: sessionStorage.getItem("session-id"),
+          userid: sessionStorage.getItem("user-id"),
+        },
+      }).then((res)=>{
+        setUserName(res.data.username);
+        setUserBalance(res.data.balance);
+      });
+  }
+  
+  if(sessionStorage.getItem("logged-in")==="true"){
+    gokurac();
+  }
+  
   return (
     <div>
       <nav className="navbar">
@@ -95,7 +117,7 @@ function Navbar(props) {
             </ul>
           </div> :
           <ul className = "menu-logged">
-            <li className = 'loggedIn'>userName</li>
+            <li className = 'loggedIn'>{userName}</li>
             <li className = 'loggedIn'>Balance: {userBalance}</li>
             <li onClick = {signOut} className = 'signOut'>Sign Out</li>
           </ul>

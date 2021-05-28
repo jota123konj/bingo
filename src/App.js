@@ -11,8 +11,24 @@ import Timer from "./Components/Timer/Timer";
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = { loggedBool: true}
+    
+    this.state = {
+    loggedBool: this.loggedInChecker()
+    
+    }
   }
+  
+  
+  
+  loggedInChecker=()=>{
+    let logString=sessionStorage.getItem("logged-in");
+    if(logString==="true"){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
   loggedSetter = (param) => {
     this.setState({
       loggedBool: param

@@ -29,8 +29,8 @@ class Tickets extends Component {
   samoGet=()=>{
     axios.get(` http://157.230.112.77:8000/api/tickets`, {
                 headers: {
-                    authorization: localStorage.getItem("session-id"),
-                    userid: localStorage.getItem("user-id")
+                    authorization: sessionStorage.getItem("session-id"),
+                    userid: sessionStorage.getItem("user-id")
                 }}).
     then((res) => {
         let tempTickets=[];
@@ -55,8 +55,8 @@ class Tickets extends Component {
   getActiveTickets=()=>{
     axios.get(` http://157.230.112.77:8000/api/tickets`, {
                 headers: {
-                    authorization: localStorage.getItem("session-id"),
-                    userid: localStorage.getItem("user-id")
+                    authorization: sessionStorage.getItem("session-id"),
+                    userid: sessionStorage.getItem("user-id")
                 }}).
     then((res) => {
         let tempTickets=[];
