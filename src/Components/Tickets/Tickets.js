@@ -72,7 +72,6 @@ class Tickets extends Component {
           }
           tempTicketsJustNumbers.push(res.data[i].selectedNum);
         }
-        
         this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
     }).
     then(async ()=>{
@@ -86,7 +85,16 @@ class Tickets extends Component {
       }
       
       this.resetTicketList(vrijeme);
+    }).catch(async ()=>{
+      let vrijeme=await this.objekat.getTime();
       
+      
+      if(vrijeme>120000){
+        vrijeme=vrijeme-120000;
+      }else{
+        this.setState({roundFinished: true});
+      }
+      this.resetTicketList(vrijeme);
     });
     
   }
@@ -111,7 +119,7 @@ class Tickets extends Component {
     return (
       
       <div>
-        <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/>
+        <CurrentTickets tickets = {this.state.ticketsJustNumbers} ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/>
         <TicketNumbers funkProp={this.samoGet}/>
       </div>
     );
