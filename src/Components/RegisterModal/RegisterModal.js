@@ -13,13 +13,30 @@ const RegisterModal = (props) => {
             <h1 className="login-text">Register</h1>
             <label>Username</label>
             <br></br>
-            <input type="text" name="username" className="login-box" />{" "}
+            <input
+              type="text"
+              name="username"
+              className="login-box"
+              value={props.username}
+              onChange={event => props.usernameInput(event.target.value)}
+            />
             <br></br>
             <label>Password</label>
             <br></br>
-            <input type="password" name="password" className="login-box" />{" "}
+            <input
+              type="password"
+              name="password"
+              className="login-box"
+              value={props.password}
+              onChange={event => props.passwordInput(event.target.value)}
+            />
             <br></br>
-            <input type="submit" value="REGISTER" className="login-btn" />
+            <input
+              type="submit"
+              value="SIGN IN"
+              className="login-btn"
+              onClick={props.handleRegister3Button}
+            />
           </form>
         </div>
       </div>

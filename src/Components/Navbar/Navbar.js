@@ -81,6 +81,53 @@ function Navbar(props) {
     gokurac();
   }
   
+  const handleRegisterButton=(event)=>{
+    
+    event.preventDefault();
+    if (userName && userPwd) {
+      let first="";
+      let last="";
+      let firstLast=userName.split(" ");
+      
+      first=firstLast[0];
+      last=firstLast[1];
+      
+      let loginData = {
+        username: userName,
+        password: userPwd,
+        firstName: first,
+        lastName: last
+      }
+      axios
+      .post(`http://157.230.112.77:8000/api/Users`, loginData)
+      .then(() => {
+        axios
+        .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
+        headers: {
+          authorization: sessionStorage.getItem("session-id"),
+          userid: sessionStorage.getItem("user-id"),
+        },
+        })
+        .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        setUserName(res.data.username);
+        setUserBalance(res.data.balance);
+        props.loggedBoolSetter(true);
+        sessionStorage.setItem("session-id", res.headers.authorization);
+        sessionStorage.setItem("user-id", res.headers.userid);
+        sessionStorage.setItem("logged-in", "true");
+        });
+      });
+      
+      
+      
+      closeMobileMenu();
+    }
+    
+  }
+  
+  
   return (
     <div>
       <nav className="navbar">
@@ -136,8 +183,14 @@ function Navbar(props) {
         handleLoginButton = {handleLoginButton}
       />
       <RegisterModal
+        username = {userName}
+        usernameInput = {usernameInput}
+        password = {userPwd}
+        passwordInput = {passwordInput}
+        
         isShowRegister = {clickRegister}
         handleRegisterClick = {closeMobileMenu}
+        handleRegisterButton={handleRegisterButton}
       />
     </div>
   );
