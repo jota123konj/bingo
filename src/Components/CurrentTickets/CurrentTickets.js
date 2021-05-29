@@ -2,40 +2,9 @@ import React from 'react';
 import './CurrentTickets.css';
 
 const CurrentTickets = (props) => {
-    let tickets =  []
+    let ticketsReady =  [];
+    let ticketsRunning = [];
     let a = null
-    const generateTicket = () => {
-        ticketSplitParse();
-        let ticketElement = [];
-        for (let i = 0; i < tickets.length; i++) {
-            ticketElement = [];
-            tickets[i].forEach((element, index) => {
-                ticketElement.push(
-                    <div key = {index} className = 'ticketNumber'>
-                        <p className = {Color(element)}>{element}</p>
-                    </div>
-                )
-            });
-            //console.log(ticketElement);
-            tickets[i] = <div className = 'row'>{ticketElement}</div>;
-        }
-    }
-    
-    props.ticketsReady[0-ticketsReady.length].selectedNum
-    props.ticketsReady[0-ticketsReady.length].stake
-
-    
-    let ticketSplitParse = () => {
-        let tempArray = [];
-        for (let i = 0; i < props.tickets.length; i++) {
-            tempArray = props.tickets[i];
-            tempArray = tempArray.split(",");
-            for (let index = 0; index < tempArray.length; index++) {
-                tempArray[index] = parseInt(tempArray[index]);
-            }
-            tickets[i] = tempArray;
-        }
-    }
 
     const Color = (number) => {
         switch (number%8){
@@ -57,11 +26,52 @@ const CurrentTickets = (props) => {
                 return "black";
         }
     }
-    console.log("currentTickets render!");
-    generateTicket();
+    
+    let ticketSplitParse = (ticketsArray) => {
+        let tempArray = [];
+        tempArray = ticketsArray.split(",");
+        for (let index = 0; index < tempArray.length; index++) {
+            tempArray[index] = parseInt(tempArray[index]);
+        }
+        return tempArray;
+    }
+
+    const generateTicket = (ticket) => {
+        let ticketNumbers = ticketSplitParse(ticket.selectedNum);
+        let stake = ticket.stake;
+        let ticketNumbersElement = [];
+        ticketNumbers.forEach((element, index) => {
+            ticketNumbersElement.push(
+                <div key = {index} className = 'ticketNumber'>
+                    <p className = {Color(element)}>{element}</p>
+                </div>
+            )
+        })
+        return <div>
+            {ticketNumbersElement}
+            <div className="stake">{stake}</div>
+        </div>
+
+    }
+    
+    const generateAllTickets = (objectsArray) => {
+        console.log('gnerate all')
+        console.log(objectsArray)
+        let tempArray = [];
+        objectsArray.forEach((element) => {
+            tempArray.push(<div>{generateTicket(element)}</div>);
+        })
+        return <div className = 'row'>
+            {tempArray}
+        </div>
+    }
+    
+    ticketsReady = generateAllTickets(props.ticketsReady);
+    ticketsRunning = generateAllTickets(props.ticketsRunning);
     return(
         <div className = 'currentTickets'>
-            {tickets}
+            {ticketsReady}
+            {ticketsRunning}
         </div>
     )
 }
