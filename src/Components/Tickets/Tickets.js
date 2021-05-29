@@ -202,3 +202,6 @@ class Timer {
   }
   
 }
+// {sessionStorage.getItem("logged-in") === "true" ? 
+//         <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/> :
+//         null}

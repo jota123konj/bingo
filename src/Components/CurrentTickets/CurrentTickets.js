@@ -4,7 +4,6 @@ import './CurrentTickets.css';
 const CurrentTickets = (props) => {
     let ticketsReady =  [];
     let ticketsRunning = [];
-    let a = null
 
     const Color = (number) => {
         switch (number%8){
@@ -47,30 +46,28 @@ const CurrentTickets = (props) => {
                 </div>
             )
         })
-        return <div>
+        return <div className = 'row'>
             {ticketNumbersElement}
-            <div className="stake">{stake}</div>
+            <div className="stake">Stake:{stake}€</div>
         </div>
 
     }
     
     const generateAllTickets = (objectsArray) => {
-        console.log('gnerate all')
-        console.log(objectsArray)
         let tempArray = [];
         objectsArray.forEach((element) => {
-            tempArray.push(<div>{generateTicket(element)}</div>);
+            tempArray.push(generateTicket(element));
         })
-        return <div className = 'row'>
-            {tempArray}
-        </div>
+        return tempArray
     }
     
     ticketsReady = generateAllTickets(props.ticketsReady);
     ticketsRunning = generateAllTickets(props.ticketsRunning);
     return(
         <div className = 'currentTickets'>
+            <h2 className = 'ticketsTitle'>Tickets for current round</h2>
             {ticketsReady}
+            <h2 className = 'ticketsTitle'>Tickets for next round</h2>
             {ticketsRunning}
         </div>
     )

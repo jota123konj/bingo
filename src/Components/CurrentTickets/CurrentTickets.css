@@ -9,6 +9,24 @@
     align-items: center;
     box-sizing: border-box;
 }
+.ticketsTitle{
+    color: white;
+    text-shadow:
+   -1.5px -1.5px 0.9px black,  
+    1.5px -1.5px 0.9px black,
+    -1.5px 1.5px 0.9px black,
+     1.5px 1.5px 0.9px black;
+}
 .row {
     display: flex;
+}
+.stake {
+    margin-left: 8px;
+    color: white;
+    text-shadow:
+   -0.7px -0.7px 0.9px black,  
+    0.7px -0.7px 0.9px black,
+    -0.7px 0.7px 0.9px black,
+     0.7px 0.7px 0.9px black;
+    align-self: center;
 }
