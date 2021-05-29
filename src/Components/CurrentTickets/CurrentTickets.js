@@ -94,10 +94,19 @@ const CurrentTickets = (props) => {
     generateRunning();
     return(
         <div className = 'currentTickets'>
-            <h2 className = 'ticketsTitle'>Tickets for current round</h2>
-            {ticketsRunning}
-            <h2 className = 'ticketsTitle'>Tickets for next round</h2>
-            {ticketsReady}
+            {props.ticketsRunning.length !== 0 ? 
+            <div>
+                <h2 className = 'ticketsTitle'>Tickets for current round</h2> 
+                {ticketsRunning} 
+            </div>
+            : null}
+            {props.ticketsReady.length !== 0 ? 
+            <div>
+                <h2 className = 'ticketsTitle'>Tickets for next round</h2>
+                {ticketsReady}
+            </div>
+            : null}
+            
         </div>
     )
 }
