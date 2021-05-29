@@ -37,18 +37,40 @@ const CurrentTickets = (props) => {
 
     const generateTicket = (ticket) => {
         let ticketNumbers = ticketSplitParse(ticket.selectedNum);
+        let ticketNumbersDrawn = ticketSplitParse(ticket.selectedNumDrawn);
         let stake = ticket.stake;
         let ticketNumbersElement = [];
-        ticketNumbers.forEach((element, index) => {
-            ticketNumbersElement.push(
-                <div key = {index} className = 'ticketNumber'>
-                    <p className = {Color(element)}>{element}</p>
-                </div>
-            )
-        })
+        if (props.roundFinished === true && ticket.status === "2") {
+            ticketNumbers.forEach((element, index) => {
+                if (ticketNumbersDrawn.includes(element)) {
+                    ticketNumbersElement.push(
+                        <div key = {index} className = 'ticketNumber drawn'>
+                            <p className = {Color(element)}>{element}</p>
+                        </div>
+                    )
+                }else {
+                    ticketNumbersElement.push(
+                        <div key = {index} className = 'ticketNumber'>
+                            <p className = {Color(element)}>{element}</p>
+                        </div>
+                    )
+                }
+            })
+        }else{
+            ticketNumbers.forEach((element, index) => {
+                ticketNumbersElement.push(
+                    <div key = {index} className = 'ticketNumber'>
+                        <p className = {Color(element)}>{element}</p>
+                    </div>
+                )
+            })
+        }
         return <div className = 'row'>
             {ticketNumbersElement}
-            <div className="stake">Stake:{stake}€</div>
+            {ticket.status === "2"?
+            <div className="stake">payout:{ticket.payout}€</div>
+            :
+            <div className="stake">Stake:{stake}€</div>}
         </div>
 
     }
