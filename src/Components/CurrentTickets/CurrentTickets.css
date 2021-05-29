@@ -19,6 +19,8 @@
 }
 .row {
     display: flex;
+    width: 80%;
+    align-items: space-between;
 }
 .stake {
     margin-left: 8px;
@@ -29,4 +31,7 @@
     -0.7px 0.7px 0.9px black,
      0.7px 0.7px 0.9px black;
     align-self: center;
+}
+.ticketNumber.drawn {
+    background-color: rgb(99, 204, 99);
 }

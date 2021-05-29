@@ -119,7 +119,9 @@ class Tickets extends Component {
     return (
       
       <div>
-        <CurrentTickets tickets = {this.state.ticketsJustNumbers} ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/>
+        {sessionStorage.getItem("logged-in") === "true" ? 
+          <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/> :
+        null}        
         <TicketNumbers funkProp={this.samoGet}/>
       </div>
     );
@@ -202,6 +204,3 @@ class Timer {
   }
   
 }
-// {sessionStorage.getItem("logged-in") === "true" ? 
-//         <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/> :
-//         null}
