@@ -60,15 +60,22 @@ const CurrentTickets = (props) => {
         })
         return tempArray
     }
-    
-    ticketsReady = generateAllTickets(props.ticketsReady);
-    ticketsRunning = generateAllTickets(props.ticketsRunning);
+    const generateReady = () => {
+        ticketsReady = [];
+        ticketsReady = generateAllTickets(props.ticketsReady);
+    }
+    const generateRunning = () => {
+        ticketsRunning = [];        
+        ticketsRunning = generateAllTickets(props.ticketsRunning);
+    }
+    generateReady();
+    generateRunning();
     return(
         <div className = 'currentTickets'>
             <h2 className = 'ticketsTitle'>Tickets for current round</h2>
-            {ticketsReady}
-            <h2 className = 'ticketsTitle'>Tickets for next round</h2>
             {ticketsRunning}
+            <h2 className = 'ticketsTitle'>Tickets for next round</h2>
+            {ticketsReady}
         </div>
     )
 }
