@@ -7,7 +7,7 @@ import "./Number.css";
 const CurrentNumbers = (props) => {
   if (props.roundNumbers !== undefined) {
     let firstTenQuotes = [
-      "1000",
+      "10000",
       "7500",
       "5000",
       "2500",
