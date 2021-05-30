@@ -12,8 +12,9 @@ class Tickets extends Component {
     ticketsReady: [],
     ticketsRunning: [],
     roundFinished: false,
-    vrijemeReseta: 0,
-    ticketsJustNumbers: []
+    ticketsJustNumbers: [],
+    timeLoaded: false,
+    vrijemeReseta: 0
   }
   objekat=new Timer();
   
@@ -46,8 +47,8 @@ class Tickets extends Component {
           }
           tempTicketsJustNumbers.push(res.data[i].selectedNum);
         }
-        
-        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+        this.setState({ ticketsReady: tempTicketsReady});
+        //this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
         console.log("samoGet je setao state!");
     });
   }
@@ -72,28 +73,77 @@ class Tickets extends Component {
           }
           tempTicketsJustNumbers.push(res.data[i].selectedNum);
         }
-        this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+        // this.setState({ticketsReady: [], ticketsRunning: []});
+        if(this.state.timeLoaded===false){
+          this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+        }else{
+          
+          if(this.state.roundFinished===true){
+            
+            this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+
+          }else{
+            this.setState({ticketsReady: tempTicketsReady});
+          }
+        }
+        
+        console.log("dobavilo je nove tickete i setalo State!");
     }).
     then(async ()=>{
-      let vrijeme=await this.objekat.getTime();
-      
-      
-      if(vrijeme>120000){
-        vrijeme=vrijeme-120000;
+      let vrijeme=0;
+      if(this.state.timeLoaded===false){
+        vrijeme=await this.objekat.getTime();
+        this.setState({timeLoaded: true});
+        if(vrijeme>120000){
+          vrijeme=vrijeme-120000;
+          this.setState({roundFinished: false});
+        }else{
+          this.setState({roundFinished: true});
+        }
       }else{
-        this.setState({roundFinished: true});
+        if(this.state.roundFinished===true){
+          this.setState({vrijemeReseta: 300000, roundFinished: false});
+        }else{
+          this.setState({vrijemeReseta: 120000, roundFinished: true});
+        }
+        vrijeme=this.state.vrijemeReseta;
       }
-      
+      if(this.state.roundFinished){
+        console.log("roundFinnished je true!");
+      }else{
+        console.log("roundFinnished je false!");
+      }
+      console.log("vrijeme: " + vrijeme);
       this.resetTicketList(vrijeme);
     }).catch(async ()=>{
-      let vrijeme=await this.objekat.getTime();
-      
-      
-      if(vrijeme>120000){
-        vrijeme=vrijeme-120000;
+      let vrijeme=0;
+      if(this.state.timeLoaded===false){
+        vrijeme=await this.objekat.getTime();
+        this.setState({timeLoaded: true});
+        if(vrijeme>120000){
+          vrijeme=vrijeme-120000;
+          this.setState({roundFinished: false});
+        }else{
+          this.setState({roundFinished: true});
+        }
       }else{
-        this.setState({roundFinished: true});
+        if(this.state.roundFinished===true){
+          this.setState({vrijemeReseta: 300000, roundFinished: false});
+        }else{
+          this.setState({vrijemeReseta: 120000, roundFinished: true});
+        }
+        vrijeme=this.state.vrijemeReseta;
       }
+      
+      
+      
+      this.setState({ticketsReady: [], ticketsRunning: []});
+      if(this.state.roundFinished){
+        console.log("roundFinnished je true!");
+      }else{
+        console.log("roundFinnished je false!");
+      }
+      console.log("vrijeme: " + vrijeme);
       this.resetTicketList(vrijeme);
     });
     
@@ -101,9 +151,10 @@ class Tickets extends Component {
   
   
   resetTicketList=(vrijeme)=>{
+    console.log("vrijeme unutar resetTicketList funkcije: "+vrijeme);
     setTimeout(()=>{
       this.getActiveTickets();
-      
+      console.log("setTimeout je završio!");
     }, vrijeme);
     
   }
@@ -192,6 +243,7 @@ class Timer {
     //this.setState({vrijemeReseta: vrijeme, ticking: false, vrijemeString: ""});
     
     });
+    console.log("vrijeme unutar getTime-a: "+vrijeme);
     return vrijeme;
   }
   
