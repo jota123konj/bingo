@@ -1,16 +1,16 @@
 import React from "react";
 import "../LoginModal/LoginModal.css";
 
-const RegisterModal = (props) => {
+const UpdateModal = (props) => {
   return (
     <div className={`${props.isShowRegister ? "" : "active"} show modal`}>
-      <div className="register-form">
+      <div className="update-form">
         <div className="form-box">
-          <button className="close-button" onClick={props.handleRegisterClick}>
+          <button className="close-button" onClick={props.handleUpdateClick}>
             <i className="fas fa-times"></i>
           </button>
           <form>
-            <h1 className="login-text">Register</h1>
+            <h1 className="login-text">Edit info</h1>
             <label>Username</label>
             <br></br>
             <input
@@ -41,6 +41,16 @@ const RegisterModal = (props) => {
               onChange={event => props.lastNameInput(event.target.value)}
             />
             <br></br>
+            <label>Balance</label>
+            <br></br>
+            <input
+              type="text"
+              name="balance"
+              className="login-box"
+              value={props.balance}
+              onChange={event => props.balanceInput(event.target.value)}
+            />
+            <br></br>
             <label>Password</label>
             <br></br>
             <input
@@ -53,9 +63,9 @@ const RegisterModal = (props) => {
             <br></br>
             <input
               type="submit"
-              value="REGISTER"
+              value="UPDATE"
               className="login-btn"
-              onClick={props.handleRegisterButton}
+              onClick={props.handleUpdateButton}
             />
           </form>
         </div>
@@ -64,4 +74,4 @@ const RegisterModal = (props) => {
   );
 };
 
-export default RegisterModal;
+export default UpdateModal;

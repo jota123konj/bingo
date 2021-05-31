@@ -4,11 +4,13 @@ import axios from "axios";
 import "./Navbar.css";
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import UpdateModal from '../UpdateModal/UpdateModal';
 
 function Navbar(props) {
   const [click, setClick] = useState(false)
   const [clickLogin, setClickLogin] = useState(false);
   const [clickRegister, setClickRegister] = useState(false);
+  const [clickUpdate, setClickUpdate] = useState(false);
 
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -47,6 +49,8 @@ function Navbar(props) {
         console.log(res);
         console.log(res.data);
         setUserName(res.data.username);
+        setFirstName(res.data.firstName);
+        setLastName(res.data.lastName);
         setUserBalance(res.data.balance);
         props.loggedBoolSetter(true);
         sessionStorage.setItem("session-id", res.headers.authorization);
@@ -106,6 +110,37 @@ function Navbar(props) {
       closeMobileMenu();
     
   }
+  const  handleBalance = (event) => {
+    event.preventDefault();
+    let balanceData = {
+      balance: userBalance
+    }
+    axios
+      .put(`http://157.230.112.77:8000/api/users/balance`, balanceData)
+      .catch(() => {
+        alert('User information not correct!')
+      });
+      closeMobileMenu();
+  }
+
+  const handleUpdateButton = (event) => {
+    event.preventDefault();      
+      let updateData = {
+        username: userName,
+        password: userPwd,
+        firstName: firstName,
+        lastName: lastName
+      }
+      axios
+      .put(`http://157.230.112.77:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData)
+      .then(() => {
+        handleBalance(event);
+        handleLoginButton(event);
+      }).catch(() => {
+        alert('User information not correct!')
+      });
+      closeMobileMenu();
+  }
   
   
   return (
@@ -125,7 +160,7 @@ function Navbar(props) {
             <ul className={click ? "nav-menu active" : "nav-menu"}>
               <li className = 'nav-item'>
                 <Link
-                  to="/Register"
+                  to="/"
                   className="nav-links"
                   onClick={() => {handleClick(setClickRegister, clickRegister)}}
                   >
@@ -133,18 +168,25 @@ function Navbar(props) {
                 </Link>
               </li>
               <li className = 'nav-item'>
-                <Link
-                  to="/SignIn"
+              <Link
+                  to="/"
                   className="nav-links"
                   onClick={() => {handleClick(setClickLogin, clickLogin)}}
                   >
-                  Sign in
+                  Sign In
                 </Link>
               </li>
             </ul>
           </div> :
           <ul className = "menu-logged">
-            <li className = 'loggedIn'>{userName}</li>
+            <li className = 'loggedIn'>
+              <Link
+                  to="/"
+                  className="nav-links update"
+                  onClick={() => {handleClick(setClickUpdate, clickUpdate)}}
+                  >
+                  {userName}
+                </Link></li>
             <li className = 'loggedIn'>Balance: {userBalance}</li>
             <li onClick = {signOut} className = 'signOut'>Sign Out</li>
           </ul>
@@ -174,6 +216,21 @@ function Navbar(props) {
         isShowRegister = {clickRegister}
         handleRegisterClick = {closeMobileMenu}
         handleRegisterButton={handleRegisterButton}
+      />
+      <UpdateModal
+        username = {userName}
+        usernameInput = {usernameInput}
+        firstName = {firstName}
+        firstNameInput = {firstNameInput}
+        lastName = {lastName}
+        lastNameInput = {lastNameInput}
+        balance = {userBalance}
+        balanceInput = {setUserBalance}
+        password = {userPwd}
+        passwordInput = {passwordInput}
+        isShowRegister = {clickUpdate}
+        handleUpdateClick = {closeMobileMenu}
+        handleUpdateButton = {handleUpdateButton}
       />
     </div>
   );
