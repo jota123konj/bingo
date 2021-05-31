@@ -14,7 +14,8 @@ class Tickets extends Component {
     roundFinished: false,
     ticketsJustNumbers: [],
     timeLoaded: false,
-    vrijemeReseta: 0
+    vrijemeReseta: 0,
+    postCounter: 0
   }
   objekat=new Timer();
   
@@ -75,12 +76,12 @@ class Tickets extends Component {
         }
         // this.setState({ticketsReady: [], ticketsRunning: []});
         if(this.state.timeLoaded===false){
-          this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+          this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning});
         }else{
           
           if(this.state.roundFinished===true){
             
-            this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning, ticketsJustNumbers: tempTicketsJustNumbers});
+            this.setState({ ticketsReady: tempTicketsReady, ticketsRunning: tempTicketsRunning});
 
           }else{
             this.setState({ticketsReady: tempTicketsReady});
@@ -136,8 +137,11 @@ class Tickets extends Component {
       }
       
       
-      
-      this.setState({ticketsReady: [], ticketsRunning: []});
+      if(sessionStorage.getItem("logged-in")==="true"){
+        this.setState({ticketsReady: []} );
+      }else{
+        this.setState({ticketsReady: [], ticketsRunning: []});
+      }
       if(this.state.roundFinished){
         console.log("roundFinnished je true!");
       }else{
@@ -171,7 +175,7 @@ class Tickets extends Component {
       
       <div>
         {sessionStorage.getItem("logged-in") === "true" ? 
-          <CurrentTickets ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/> :
+          <CurrentTickets roundFinished={this.state.roundFinished} ticketsReady = {this.state.ticketsReady} ticketsRunning={this.state.ticketsRunning}/> :
         null}        
         <TicketNumbers funkProp={this.samoGet}/>
       </div>
@@ -213,20 +217,20 @@ class Timer {
     
     let rez=rundaSat-sat;
     if(rez===0){//ako je broj sati isti
-    rez=(rundaMinute-minute)*60;
-    if(rundaSekunde>sekunde){
-        rez=rez+(rundaSekunde-sekunde);
-    }else if(rundaSekunde<sekunde){
-        rez=rez-(sekunde-rundaSekunde);
-    }
+      rez=(rundaMinute-minute)*60;  
+      if(rundaSekunde>sekunde){
+          rez=rez+(rundaSekunde-sekunde);
+      }else if(rundaSekunde<sekunde){
+          rez=rez-(sekunde-rundaSekunde);
+      }
     
     }else{//ako nije isti broj sati (trenutno vrijeme u reaktu nikad ne može biti veće od vremena početka ili kraja runde)
-    rez=((60-minute)+rundaMinute)*60;
-    if(rundaSekunde>sekunde){
-        rez=rez+(rundaSekunde-sekunde);
-    }else if(rundaSekunde<sekunde){
-        rez=rez-(sekunde-rundaSekunde);
-    }
+      rez=((60-minute)+rundaMinute)*60;
+      if(rundaSekunde>sekunde){
+          rez=rez+(rundaSekunde-sekunde);
+      }else if(rundaSekunde<sekunde){
+          rez=rez-(sekunde-rundaSekunde);
+      }
     }
     
     return rez;//vrijeme do kraja

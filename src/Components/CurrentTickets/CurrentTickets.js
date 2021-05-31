@@ -67,7 +67,7 @@ const CurrentTickets = (props) => {
         }
         return <div className = 'row'>
             {ticketNumbersElement}
-            {ticket.status === "2"?
+            {ticket.status === "2" && props.roundFinished===true ?
             <div className="stake">payout:{ticket.payout}€</div>
             :
             <div className="stake">Stake:{stake}€</div>}
