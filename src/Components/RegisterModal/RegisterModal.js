@@ -4,7 +4,7 @@ import "../LoginModal/LoginModal.css";
 const RegisterModal = (props) => {
   return (
     <div className={`${props.isShowRegister ? "" : "active"} show modal`}>
-      <div className="login-form">
+      <div className="register-form">
         <div className="form-box">
           <button className="close-button" onClick={props.handleRegisterClick}>
             <i className="fas fa-times"></i>
@@ -21,6 +21,26 @@ const RegisterModal = (props) => {
               onChange={event => props.usernameInput(event.target.value)}
             />
             <br></br>
+            <label>First Name</label>
+            <br></br>
+            <input
+              type="text"
+              name="firstName"
+              className="login-box"
+              value={props.firstName}
+              onChange={event => props.firstNameInput(event.target.value)}
+            />
+            <br></br>
+            <label>Last Name</label>
+            <br></br>
+            <input
+              type="text"
+              name="lastName"
+              className="login-box"
+              value={props.lastName}
+              onChange={event => props.lastNameInput(event.target.value)}
+            />
+            <br></br>
             <label>Password</label>
             <br></br>
             <input
@@ -35,7 +55,7 @@ const RegisterModal = (props) => {
               type="submit"
               value="SIGN IN"
               className="login-btn"
-              onClick={props.handleRegister3Button}
+              onClick={props.handleRegisterButton}
             />
           </form>
         </div>

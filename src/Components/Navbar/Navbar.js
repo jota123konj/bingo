@@ -11,9 +11,13 @@ function Navbar(props) {
   const [clickRegister, setClickRegister] = useState(false);
 
   const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userPwd, setUserPwd] = useState("");
   const [userBalance, setUserBalance]  = useState(0);
   const usernameInput = (username) => setUserName(username);
+  const firstNameInput = (userfirstName) => setFirstName(userfirstName);
+  const lastNameInput = (userLastName) => setLastName(userLastName);
   const passwordInput = (password) => setUserPwd(password);
 
   const handleClick = (func, param) => {
@@ -28,7 +32,6 @@ function Navbar(props) {
   
   const handleLoginButton = (event) => {
     event.preventDefault();
-    if (userName && userPwd) {
       let loginData = {
         Username: userName,
         Password: userPwd
@@ -45,18 +48,21 @@ function Navbar(props) {
         console.log(res.data);
         setUserName(res.data.username);
         setUserBalance(res.data.balance);
-    props.loggedBoolSetter(true);
+        props.loggedBoolSetter(true);
         sessionStorage.setItem("session-id", res.headers.authorization);
         sessionStorage.setItem("user-id", res.headers.userid);
         sessionStorage.setItem("logged-in", "true");
+      }).catch(() => {
+        alert('User information not correct!')
       });
       closeMobileMenu();
-    }
   }
   const signOut = () => {
     sessionStorage.clear();
     setUserBalance(0);
     setUserName("");
+    setLastName("");
+    setFirstName("");
     setUserPwd("");
     props.loggedBoolSetter(false);
     console.log(props.loggedBool);
@@ -64,7 +70,7 @@ function Navbar(props) {
 
   }
   
-  const gokurac=()=>{
+  const refresh = () => {
     axios
       .get(`http://157.230.112.77:8000/api/tokens`, {
         headers: {
@@ -78,52 +84,26 @@ function Navbar(props) {
   }
   
   if(sessionStorage.getItem("logged-in")==="true"){
-    gokurac();
+    refresh ();
   }
   
   const handleRegisterButton=(event)=>{
     
-    event.preventDefault();
-    if (userName && userPwd) {
-      let first="";
-      let last="";
-      let firstLast=userName.split(" ");
-      
-      first=firstLast[0];
-      last=firstLast[1];
-      
-      let loginData = {
+    event.preventDefault();      
+      let registerData = {
         username: userName,
         password: userPwd,
-        firstName: first,
-        lastName: last
+        firstName: firstName,
+        lastName: lastName
       }
       axios
-      .post(`http://157.230.112.77:8000/api/Users`, loginData)
+      .post(`http://157.230.112.77:8000/api/users`, registerData)
       .then(() => {
-        axios
-        .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
-        headers: {
-          authorization: sessionStorage.getItem("session-id"),
-          userid: sessionStorage.getItem("user-id"),
-        },
-        })
-        .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        setUserName(res.data.username);
-        setUserBalance(res.data.balance);
-        props.loggedBoolSetter(true);
-        sessionStorage.setItem("session-id", res.headers.authorization);
-        sessionStorage.setItem("user-id", res.headers.userid);
-        sessionStorage.setItem("logged-in", "true");
-        });
+        handleLoginButton(event);
+      }).catch(() => {
+        alert('User information not correct!')
       });
-      
-      
-      
       closeMobileMenu();
-    }
     
   }
   
@@ -185,9 +165,12 @@ function Navbar(props) {
       <RegisterModal
         username = {userName}
         usernameInput = {usernameInput}
+        firstName = {firstName}
+        firstNameInput = {firstNameInput}
+        lastName = {lastName}
+        lastNameInput = {lastNameInput}
         password = {userPwd}
         passwordInput = {passwordInput}
-        
         isShowRegister = {clickRegister}
         handleRegisterClick = {closeMobileMenu}
         handleRegisterButton={handleRegisterButton}
@@ -197,45 +180,24 @@ function Navbar(props) {
 }
 
 export default Navbar;
-// <nav className = "navbar-logged">
-//   <div className="container-logged">
-//   </div>
-// </nav>
-          
-          {/* {user == null ? (
-          <div className = 'navbar-container'>
-            <div className="menu-icon" onClick={handleClick}>
-              <i className={click ? "fas fa-times" : "fas fa-bars"} />
-            </div>
-              <ul className={click ? "nav-menu active" : "nav-menu"}>
-                <li className="nav-item">
-                  <Link
-                    to="/Register"
-                    className="nav-links"
-                    onClick={registerCombine}
-                  >
-                    Register
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/SignIn"
-                    className="nav-links"
-                    onClick={signinCombine}
-                  >
-                    Sign in
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className="nav-item">
-                <div className = 'loggedIn'>{user.username}</div>
-                <div className = 'loggedIn'>Balance: {user.balance}</div>
-                <button onClick = {signOut}className = 'signOut'>Sign Out</button>
-
-              </li>
-            </ul>
-            
-          )} */}
+// () => {
+//   axios
+//   .post(`http://157.230.112.77:8000/api/tokens`, registerData, {
+//   headers: {
+//     authorization: sessionStorage.getItem("session-id"),
+//     userid: sessionStorage.getItem("user-id"),
+//   },
+//   })
+//   .then((res) => {
+//   console.log(res);
+//   console.log(res.data);
+//   setUserName(res.data.username);
+//   setFirstName(res.data.firstName);
+//   setLastName(res.data.lastName);
+//   setUserBalance(res.data.balance);
+//   props.loggedBoolSetter(true);
+//   sessionStorage.setItem("session-id", res.headers.authorization);
+//   sessionStorage.setItem("user-id", res.headers.userid);
+//   sessionStorage.setItem("logged-in", "true");
+//   });
+// }

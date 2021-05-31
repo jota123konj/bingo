@@ -3,6 +3,23 @@ import './ActiveTicket.css'
 
 const ActiveTicket = (props) => {
     let ticketNumbersArray = []
+    let bidCheck;
+    const bidChecker = () => {
+        let bidString = String(props.bid);
+        let bidDecimalString = bidString.split('.')[1]
+        if (bidString.includes('.') && bidString.split('.')[1].length > 2) {
+            bidCheck = false;
+        }else if(bidString.includes('.') && bidString.split('.')[1].length === 2){
+            if(bidDecimalString[1] === '5' || bidDecimalString[1] === '0'){
+                bidCheck = true;
+            }else{
+                bidCheck = false;
+            }
+
+        }else{
+            bidCheck = true;
+        }
+    }
     const generateNumbers = () => {
         console.log('generate nums');
         for(let i = 0; i < 6; i++) {
@@ -38,6 +55,7 @@ const ActiveTicket = (props) => {
     }
 
     generateNumbers();
+    bidChecker();
     //value={props.bid}
     console.log("ActiveTicket render!");
     return(
@@ -45,7 +63,7 @@ const ActiveTicket = (props) => {
             <div className = 'ticket'>{ticketNumbersArray}</div>
             <form onChange = {event => props.bidAmountCallback(event.target.value)} className="bidWrapper">
                 <input type="number" max = '100' min = '1' step = '0.05' placeholder = 'Bid 1-100' value={props.bid} className="bidAmount" />
-                {props.bid >= 1 && props.bid && props.bid <= 100 && props.children.length === 6 && sessionStorage.getItem("logged-in")==="true" ? 
+                {bidCheck === true && props.bid >= 1 && props.bid <= 100 && props.children.length === 6 && sessionStorage.getItem("logged-in")==="true" ? 
                     <button onClick = {props.clickHandler} className = 'bid'>BID</button>:
                     <button disabled className = 'bidDisabled'>BID</button> 
                 }

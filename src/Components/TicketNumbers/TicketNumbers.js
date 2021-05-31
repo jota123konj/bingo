@@ -251,7 +251,7 @@ class TicketNumbers extends Component {
                 headers: {
                     //authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJMdWNreVNpeFNlcnZpY2VBY2Nlc3NUb2tlbiIsImp0aSI6ImNkMzYxM2FiLTY0NzktNGYxOS04YzQ4LTQxZmJkODZlOGFmOCIsImlhdCI6IjA1LzI2LzIwMjEgMTI6NDY6MjUiLCJJZCI6IjQ4IiwiVXNlck5hbWUiOiJ1c2VyMyIsIkZpcnN0TmFtZSI6IlRvaSIsIkxhc3ROYW1lIjoiVG9ubmkiLCJleHAiOjE2MjIxMTk1ODUsImlzcyI6Ikx1Y2t5U2l4QXV0aGVudGljYXRpb25TZXJ2ZXIiLCJhdWQiOiJMdWNreVNpeFNlcnZpY2VQb3N0bWFuQ2xpZW50In0.4rrOHQ_uvowfO7P3wIPT6e6FtBia22yWvdUiE7RRtV8",
                     authorization: sessionStorage.getItem("session-id"),
-                    userid: "48"
+                    userid: sessionStorage.getItem("user-id")
                 }
             }).then(()=>this.props.funkProp());
             
@@ -344,6 +344,7 @@ class TicketNumbers extends Component {
         this.setState({bid: childData});
         console.log(childData)
     }
+    
     
     render() {
         console.log("TicketNumbers render!");
