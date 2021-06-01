@@ -17,6 +17,7 @@ function Navbar(props) {
   const [lastName, setLastName] = useState("");
   const [userPwd, setUserPwd] = useState("");
   const [userBalance, setUserBalance]  = useState(0);
+  const [balance, setBalance]  = useState(0);
   const usernameInput = (username) => setUserName(username);
   const firstNameInput = (userfirstName) => setFirstName(userfirstName);
   const lastNameInput = (userLastName) => setLastName(userLastName);
@@ -119,7 +120,7 @@ function Navbar(props) {
   const  handleBalance = (event) => {
     event.preventDefault();
     let balanceData = {
-      balance: userBalance
+      balance: balance
     }
     axios
       .put(`http://157.230.112.77:8000/api/users/balance`, balanceData, {
@@ -127,11 +128,14 @@ function Navbar(props) {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
         },
+      }).then(res => {
+        setUserBalance(res.data.balance);
       })
       .catch(() => {
         alert('User information not correct!')
       });
       closeMobileMenu();
+      refresh();
   }
 
   // const handleUpdateButton = (event) => {
@@ -235,8 +239,8 @@ function Navbar(props) {
         handleRegisterButton={handleRegisterButton}
       />
       <UpdateModal
-        balance = {userBalance}
-        balanceInput = {setUserBalance}
+        balance = {balance}
+        balanceInput = {setBalance}
         isShowUpdate = {clickUpdate}
         handleUpdateClick = {closeMobileMenu}
         handleUpdateButton = {handleBalance}
