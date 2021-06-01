@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
@@ -29,6 +29,7 @@ function Navbar(props) {
   const closeMobileMenu = () => {
     setClickRegister(false);
     setClickLogin(false);
+    setClickUpdate(false);
   }
   
   
@@ -84,12 +85,17 @@ function Navbar(props) {
       }).then((res)=>{
         setUserName(res.data.username);
         setUserBalance(res.data.balance);
+      }).catch(() => {
+        refresh();
       });
   }
+  useEffect(() => {
+    if(sessionStorage.getItem("logged-in")==="true" && userBalance === 0 && userName === "" ){
+      console.log('refresh')
+      refresh ();
+    }
+  });
   
-  if(sessionStorage.getItem("logged-in")==="true"){
-    refresh ();
-  }
   
   const handleRegisterButton=(event)=>{
     
@@ -116,31 +122,42 @@ function Navbar(props) {
       balance: userBalance
     }
     axios
-      .put(`http://157.230.112.77:8000/api/users/balance`, balanceData)
+      .put(`http://157.230.112.77:8000/api/users/balance`, balanceData, {
+        headers: {
+          authorization: sessionStorage.getItem("session-id"),
+          userid: sessionStorage.getItem("user-id"),
+        },
+      })
       .catch(() => {
         alert('User information not correct!')
       });
       closeMobileMenu();
   }
 
-  const handleUpdateButton = (event) => {
-    event.preventDefault();      
-      let updateData = {
-        username: userName,
-        password: userPwd,
-        firstName: firstName,
-        lastName: lastName
-      }
-      axios
-      .put(`http://157.230.112.77:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData)
-      .then(() => {
-        handleBalance(event);
-        handleLoginButton(event);
-      }).catch(() => {
-        alert('User information not correct!')
-      });
-      closeMobileMenu();
-  }
+  // const handleUpdateButton = (event) => {
+  //   event.preventDefault();      
+  //     let updateData = {
+  //       username: userName,
+  //       password: userPwd,
+  //       firstName: firstName,
+  //       lastName: lastName
+  //     }
+  //     axios
+  //     .put(`http://157.230.112.77:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData, {
+  //       headers: {
+  //         authorization: sessionStorage.getItem("session-id"),
+  //         userid: sessionStorage.getItem("user-id"),
+  //       },
+  //     })
+  //     .then(() => {
+  //       handleBalance(event);
+  //       handleLoginButton(event);
+  //     }).catch(() => {
+  //       alert('User information not correct!')
+  //       refresh();
+  //     });
+  //     closeMobileMenu();
+  // }
   
   
   return (
@@ -218,19 +235,11 @@ function Navbar(props) {
         handleRegisterButton={handleRegisterButton}
       />
       <UpdateModal
-        username = {userName}
-        usernameInput = {usernameInput}
-        firstName = {firstName}
-        firstNameInput = {firstNameInput}
-        lastName = {lastName}
-        lastNameInput = {lastNameInput}
         balance = {userBalance}
         balanceInput = {setUserBalance}
-        password = {userPwd}
-        passwordInput = {passwordInput}
-        isShowRegister = {clickUpdate}
+        isShowUpdate = {clickUpdate}
         handleUpdateClick = {closeMobileMenu}
-        handleUpdateButton = {handleUpdateButton}
+        handleUpdateButton = {handleBalance}
       />
     </div>
   );
