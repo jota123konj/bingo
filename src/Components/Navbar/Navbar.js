@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Navbar.css";
-import LoginModal from '../LoginModal/LoginModal';
-import RegisterModal from '../RegisterModal/RegisterModal';
-import UpdateModal from '../UpdateModal/UpdateModal';
+import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import UpdateModal from "../UpdateModal/UpdateModal";
 
 function Navbar(props) {
-  const [click, setClick] = useState(false)
+  const [click, setClick] = useState(false);
   const [clickLogin, setClickLogin] = useState(false);
   const [clickRegister, setClickRegister] = useState(false);
   const [clickUpdate, setClickUpdate] = useState(false);
@@ -16,8 +16,8 @@ function Navbar(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userPwd, setUserPwd] = useState("");
-  const [userBalance, setUserBalance]  = useState(0);
-  const [balance, setBalance]  = useState(0);
+  const [userBalance, setUserBalance] = useState(0);
+  const [balance, setBalance] = useState(0);
   const usernameInput = (username) => setUserName(username);
   const firstNameInput = (userfirstName) => setFirstName(userfirstName);
   const lastNameInput = (userLastName) => setLastName(userLastName);
@@ -25,23 +25,22 @@ function Navbar(props) {
 
   const handleClick = (func, param) => {
     func(!param);
-    setClick(false)
-    }
+    setClick(false);
+  };
   const closeMobileMenu = () => {
     setClickRegister(false);
     setClickLogin(false);
     setClickUpdate(false);
-  }
-  
-  
+  };
+
   const handleLoginButton = (event) => {
     event.preventDefault();
-      let loginData = {
-        Username: userName,
-        Password: userPwd
-      }
-      axios
-      .post(`http://157.230.112.77:8000/api/tokens`, loginData, {
+    let loginData = {
+      Username: userName,
+      Password: userPwd,
+    };
+    axios
+      .post(`http://64.225.102.112:8000/api/tokens`, loginData, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -58,11 +57,12 @@ function Navbar(props) {
         sessionStorage.setItem("session-id", res.headers.authorization);
         sessionStorage.setItem("user-id", res.headers.userid);
         sessionStorage.setItem("logged-in", "true");
-      }).catch(() => {
-        alert('User information not correct!')
+      })
+      .catch(() => {
+        alert("User information not correct!");
       });
-      closeMobileMenu();
-  }
+    closeMobileMenu();
+  };
   const signOut = () => {
     sessionStorage.clear();
     setUserBalance(0);
@@ -73,73 +73,77 @@ function Navbar(props) {
     props.loggedBoolSetter(false);
     console.log(props.loggedBool);
     //sessionStorage.setItem("logged-in", "false");
+  };
 
-  }
-  
   const refresh = () => {
     axios
-      .get(`http://157.230.112.77:8000/api/tokens`, {
+      .get(`http://64.225.102.112:8000/api/tokens`, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
         },
-      }).then((res)=>{
+      })
+      .then((res) => {
         setUserName(res.data.username);
-        setUserBalance(res.data.balance);
-      }).catch(() => {
-        refresh();
-      });
-  }
-  useEffect(() => {
-    if(sessionStorage.getItem("logged-in")==="true" && userBalance === 0 && userName === "" ){
-      console.log('refresh')
-      refresh ();
-    }
-  });
-  
-  
-  const handleRegisterButton=(event)=>{
-    
-    event.preventDefault();      
-      let registerData = {
-        username: userName,
-        password: userPwd,
-        firstName: firstName,
-        lastName: lastName
-      }
-      axios
-      .post(`http://157.230.112.77:8000/api/users`, registerData)
-      .then(() => {
-        handleLoginButton(event);
-      }).catch(() => {
-        alert('User information not correct!')
-      });
-      closeMobileMenu();
-    
-  }
-  const  handleBalance = (event) => {
-    event.preventDefault();
-    let balanceData = {
-      balance: balance
-    }
-    axios
-      .put(`http://157.230.112.77:8000/api/users/balance`, balanceData, {
-        headers: {
-          authorization: sessionStorage.getItem("session-id"),
-          userid: sessionStorage.getItem("user-id"),
-        },
-      }).then(res => {
         setUserBalance(res.data.balance);
       })
       .catch(() => {
-        alert('User information not correct!')
+        refresh();
       });
-      closeMobileMenu();
+  };
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("logged-in") === "true" &&
+      userBalance === 0 &&
+      userName === ""
+    ) {
+      console.log("refresh");
       refresh();
-  }
+    }
+  });
+
+  const handleRegisterButton = (event) => {
+    event.preventDefault();
+    let registerData = {
+      username: userName,
+      password: userPwd,
+      firstName: firstName,
+      lastName: lastName,
+    };
+    axios
+      .post(`http://64.225.102.112:8000/api/users`, registerData)
+      .then(() => {
+        handleLoginButton(event);
+      })
+      .catch(() => {
+        alert("User information not correct!");
+      });
+    closeMobileMenu();
+  };
+  const handleBalance = (event) => {
+    event.preventDefault();
+    let balanceData = {
+      balance: balance,
+    };
+    axios
+      .put(`http://64.225.102.112:8000/api/users/balance`, balanceData, {
+        headers: {
+          authorization: sessionStorage.getItem("session-id"),
+          userid: sessionStorage.getItem("user-id"),
+        },
+      })
+      .then((res) => {
+        setUserBalance(res.data.balance);
+      })
+      .catch(() => {
+        alert("User information not correct!");
+      });
+    closeMobileMenu();
+    refresh();
+  };
 
   // const handleUpdateButton = (event) => {
-  //   event.preventDefault();      
+  //   event.preventDefault();
   //     let updateData = {
   //       username: userName,
   //       password: userPwd,
@@ -147,7 +151,7 @@ function Navbar(props) {
   //       lastName: lastName
   //     }
   //     axios
-  //     .put(`http://157.230.112.77:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData, {
+  //     .put(`http://64.225.102.112:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData, {
   //       headers: {
   //         authorization: sessionStorage.getItem("session-id"),
   //         userid: sessionStorage.getItem("user-id"),
@@ -162,8 +166,7 @@ function Navbar(props) {
   //     });
   //     closeMobileMenu();
   // }
-  
-  
+
   return (
     <div>
       <nav className="navbar">
@@ -172,78 +175,91 @@ function Navbar(props) {
             Beengo
           </Link>
 
-
-          {props.loggedBool === false ? 
-          <div>
-            <div className="menu-icon" onClick={() => {setClick(!click)}}>
+          {props.loggedBool === false ? (
+            <div>
+              <div
+                className="menu-icon"
+                onClick={() => {
+                  setClick(!click);
+                }}
+              >
                 <i className={click ? "fas fa-times" : "fas fa-bars"} />
+              </div>
+              <ul className={click ? "nav-menu active" : "nav-menu"}>
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className="nav-links"
+                    onClick={() => {
+                      handleClick(setClickRegister, clickRegister);
+                    }}
+                  >
+                    Register
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className="nav-links"
+                    onClick={() => {
+                      handleClick(setClickLogin, clickLogin);
+                    }}
+                  >
+                    Sign In
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <li className = 'nav-item'>
+          ) : (
+            <ul className="menu-logged">
+              <li className="loggedIn">
                 <Link
                   to="/"
-                  className="nav-links"
-                  onClick={() => {handleClick(setClickRegister, clickRegister)}}
-                  >
-                  Register
+                  className="nav-links update"
+                  onClick={() => {
+                    handleClick(setClickUpdate, clickUpdate);
+                  }}
+                >
+                  {userName}
                 </Link>
               </li>
-              <li className = 'nav-item'>
-              <Link
-                  to="/"
-                  className="nav-links"
-                  onClick={() => {handleClick(setClickLogin, clickLogin)}}
-                  >
-                  Sign In
-                </Link>
+              <li className="loggedIn">Balance: {userBalance}</li>
+              <li onClick={signOut} className="signOut">
+                Sign Out
               </li>
             </ul>
-          </div> :
-          <ul className = "menu-logged">
-            <li className = 'loggedIn'>
-              <Link
-                  to="/"
-                  className="nav-links update"
-                  onClick={() => {handleClick(setClickUpdate, clickUpdate)}}
-                  >
-                  {userName}
-                </Link></li>
-            <li className = 'loggedIn'>Balance: {userBalance}</li>
-            <li onClick = {signOut} className = 'signOut'>Sign Out</li>
-          </ul>
-        }
+          )}
         </div>
       </nav>
-      
-      
+
       <LoginModal
-        username = {userName}
-        usernameInput = {usernameInput}
-        password = {userPwd}
-        passwordInput = {passwordInput}
-        isShowLogin = {clickLogin}
-        handleLoginClick = {closeMobileMenu}
-        handleLoginButton = {handleLoginButton}
+        username={userName}
+        usernameInput={usernameInput}
+        password={userPwd}
+        passwordInput={passwordInput}
+        isShowLogin={clickLogin}
+        handleLoginClick={closeMobileMenu}
+        handleLoginButton={handleLoginButton}
       />
       <RegisterModal
-        username = {userName}
-        usernameInput = {usernameInput}
-        firstName = {firstName}
-        firstNameInput = {firstNameInput}
-        lastName = {lastName}
-        lastNameInput = {lastNameInput}
-        password = {userPwd}
-        passwordInput = {passwordInput}
-        isShowRegister = {clickRegister}
-        handleRegisterClick = {closeMobileMenu}
+        username={userName}
+        usernameInput={usernameInput}
+        firstName={firstName}
+        firstNameInput={firstNameInput}
+        lastName={lastName}
+        lastNameInput={lastNameInput}
+        password={userPwd}
+        passwordInput={passwordInput}
+        isShowRegister={clickRegister}
+        handleRegisterClick={closeMobileMenu}
         handleRegisterButton={handleRegisterButton}
       />
       <UpdateModal
-        balance = {balance}
-        balanceInput = {setBalance}
-        isShowUpdate = {clickUpdate}
-        handleUpdateClick = {closeMobileMenu}
-        handleUpdateButton = {handleBalance}
+        balance={balance}
+        balanceInput={setBalance}
+        isShowUpdate={clickUpdate}
+        handleUpdateClick={closeMobileMenu}
+        handleUpdateButton={handleBalance}
       />
     </div>
   );
@@ -252,7 +268,7 @@ function Navbar(props) {
 export default Navbar;
 // () => {
 //   axios
-//   .post(`http://157.230.112.77:8000/api/tokens`, registerData, {
+//   .post(`http://64.225.102.112:8000/api/tokens`, registerData, {
 //   headers: {
 //     authorization: sessionStorage.getItem("session-id"),
 //     userid: sessionStorage.getItem("user-id"),
