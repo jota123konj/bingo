@@ -92,7 +92,7 @@ class Bingo extends Component {
     let vrijeme;
 
     axios
-      .get(` http://64.225.102.112:8000/api/rounds/running`)
+      .get(` http://165.227.175.177:8000/api/rounds/running`)
       .then((res) => {
         //console.log(res.data.drawnNum);
         this.setState({
@@ -123,7 +123,7 @@ class Bingo extends Component {
         //console.log("error je uhvacen");
         if (this.state.loading) {
           axios
-            .get(` http://64.225.102.112:8000/api/rounds/ready`)
+            .get(` http://165.227.175.177:8000/api/rounds/ready`)
             .then((res) => {
               this.setState({ start: res.data.startRoundTime });
               vrijeme = (this.preostaloVrijeme(this.state.start) + 1) * 1000; //ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde

@@ -26,7 +26,7 @@ class Tickets extends Component {
 
   samoGet = () => {
     axios
-      .get(` http://64.225.102.112:8000/api/tickets`, {
+      .get(` http://165.227.175.177:8000/api/tickets`, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -54,7 +54,7 @@ class Tickets extends Component {
 
   getActiveTickets = () => {
     axios
-      .get(` http://64.225.102.112:8000/api/tickets`, {
+      .get(` http://165.227.175.177:8000/api/tickets`, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -243,7 +243,7 @@ class Timer {
     let vrijeme = 0;
 
     await axios
-      .get(` http://64.225.102.112:8000/api/rounds/ready`)
+      .get(` http://165.227.175.177:8000/api/rounds/ready`)
       .then((res) => {
         //this.setState({ start: res.data.startRoundTime});
         vrijeme = (this.preostaloVrijeme(res.data.startRoundTime) + 1) * 1000; //ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde

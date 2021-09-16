@@ -40,7 +40,7 @@ function Navbar(props) {
       Password: userPwd,
     };
     axios
-      .post(`http://64.225.102.112:8000/api/tokens`, loginData, {
+      .post(`http://165.227.175.177:8000/api/tokens`, loginData, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -77,7 +77,7 @@ function Navbar(props) {
 
   const refresh = () => {
     axios
-      .get(`http://64.225.102.112:8000/api/tokens`, {
+      .get(`http://165.227.175.177:8000/api/tokens`, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -111,7 +111,7 @@ function Navbar(props) {
       lastName: lastName,
     };
     axios
-      .post(`http://64.225.102.112:8000/api/users`, registerData)
+      .post(`http://165.227.175.177:8000/api/users`, registerData)
       .then(() => {
         handleLoginButton(event);
       })
@@ -126,7 +126,7 @@ function Navbar(props) {
       balance: balance,
     };
     axios
-      .put(`http://64.225.102.112:8000/api/users/balance`, balanceData, {
+      .put(`http://165.227.175.177:8000/api/users/balance`, balanceData, {
         headers: {
           authorization: sessionStorage.getItem("session-id"),
           userid: sessionStorage.getItem("user-id"),
@@ -151,7 +151,7 @@ function Navbar(props) {
   //       lastName: lastName
   //     }
   //     axios
-  //     .put(`http://64.225.102.112:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData, {
+  //     .put(`http://165.227.175.177:8000/api/users/${sessionStorage.getItem("user-id")}`, updateData, {
   //       headers: {
   //         authorization: sessionStorage.getItem("session-id"),
   //         userid: sessionStorage.getItem("user-id"),
@@ -268,7 +268,7 @@ function Navbar(props) {
 export default Navbar;
 // () => {
 //   axios
-//   .post(`http://64.225.102.112:8000/api/tokens`, registerData, {
+//   .post(`http://165.227.175.177:8000/api/tokens`, registerData, {
 //   headers: {
 //     authorization: sessionStorage.getItem("session-id"),
 //     userid: sessionStorage.getItem("user-id"),

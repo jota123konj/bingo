@@ -69,7 +69,7 @@ class Timer extends Component {
 
   getTime = () => {
     axios
-      .get(` http://64.225.102.112:8000/api/rounds/ready`)
+      .get(` http://165.227.175.177:8000/api/rounds/ready`)
       .then((res) => {
         this.setState({ start: res.data.startRoundTime });
         let vrijeme = (this.preostaloVrijeme(this.state.start) + 1) * 1000; //ovdje se postavi inicijalno vrijeme do pokretanja sljedeće runde
